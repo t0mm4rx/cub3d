@@ -2,10 +2,10 @@ const MAP_SIZE = 20;
 const WALLS = 40;
 const MINIMAP_SIZE = 200;
 const RAYS = 100;
-const FOV = 120;
-const ROTATE_SPEED = 2;
-const SPEED = .05;
-const PRECISION = .01;
+const FOV = 80;
+const ROTATE_SPEED = 4;
+const SPEED = .08;
+const PRECISION = .001;
 
 var minimap = null;
 var map = null;
@@ -55,6 +55,7 @@ function draw()
     process_rays();
     draw_rays();
     draw_minimap();
+    text(round(frameRate()), 10, 20);
 }
 
 function draw_rays()
@@ -62,8 +63,8 @@ function draw_rays()
     noStroke();
     for (let i = 0; i < RAYS; i++)
     {
-        let color = map_fn(rays[i].distance, 0, MAP_SIZE, 255, 0);
-        let h = map_fn(rays[i].distance, 0, MAP_SIZE, height, 10);
+        let color = map_fn(rays[i].distance ** 1.3, 0, MAP_SIZE, 255, 0);
+        let h = map_fn(rays[i].distance, 0, MAP_SIZE, height / 2, 10);
         fill(color);
         rect(i * resolution, height / 2 + h / 2, resolution, -h);
     }
@@ -114,7 +115,7 @@ function process_rays()
             let y = round(position.y + ray.y * i);
             if (map[x][y] == 1)
             {
-                ray.distance = position.dist(createVector(x, y));
+                ray.distance = position.dist(createVector(position.x + ray.x * i, position.y + ray.y * i));
                 i = MAP_SIZE;
             }
             i += PRECISION;
@@ -128,9 +129,9 @@ function handle_inputs()
         rotate_rays(-ROTATE_SPEED);
     if (keyIsDown(RIGHT_ARROW))
         rotate_rays(ROTATE_SPEED);
-    if (keyIsDown(87))
+    if (keyIsDown(87) || keyIsDown(UP_ARROW))
         position.add(heading.copy().mult(SPEED));
-    if (keyIsDown(83))
+    if (keyIsDown(83) || keyIsDown(DOWN_ARROW))
         position.add(heading.copy().mult(-SPEED));
     if (keyIsDown(65))
         position.add(heading.copy().rotate(-90).mult(SPEED));
