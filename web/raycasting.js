@@ -49,7 +49,7 @@ function setup()
 
 function draw()
 {
-  //console.log(heading.heading());
+    //console.log(heading.heading());
     background(0);
     handle_inputs();
     process_rays();
@@ -108,10 +108,7 @@ function rotate_rays(angle)
 function process_rays()
 {
     for (let ray of rays)
-    {
-        ray.distance = min(MAP_SIZE, raycast_left(ray), raycast_right(ray));
-
-    }
+        ray.distance = min(MAP_SIZE, raycast_left(ray), raycast_right(ray), raycast_top(ray), raycast_bottom(ray));
 }
 
 function handle_inputs()
@@ -162,6 +159,44 @@ function raycast_right(ray)
     if (nx == 0)
       nx = -1;
     let ny = Math.tan(theta / 360 * (2 * Math.PI)) * nx;
+    cx += nx;
+    cy += ny;
+  }
+  return position.dist(createVector(cx, cy));
+}
+
+function raycast_top(ray)
+{
+  let theta = ray.heading();
+  if (theta < 0)
+    return MAP_SIZE;
+  let cx = position.x;
+  let cy = position.y;
+  while (cx < MAP_SIZE && cy < MAP_SIZE  && cx > 0 && cy > 0 && map[floor(cx)][floor(cy)] == 0)
+  {
+    let ny = floor(cy + 1) - cy;
+    if (ny == 0)
+      ny = 1;
+    let nx = Math.tan((90 - theta) / 360 * (2 * Math.PI)) * ny;
+    cx += nx;
+    cy += ny;
+  }
+  return position.dist(createVector(cx, cy));
+}
+
+function raycast_bottom(ray)
+{
+  let theta = ray.heading();
+  if (theta > 0)
+    return MAP_SIZE;
+  let cx = position.x;
+  let cy = position.y;
+  while (cx < MAP_SIZE && cy < MAP_SIZE  && cx > 0 && cy > 0 && map[floor(cx)][floor(cy - 1)] == 0)
+  {
+    let ny = -(cy - floor(cy));
+    if (ny == 0)
+      ny = -1;
+    let nx = Math.tan((90 - theta) / 360 * (2 * Math.PI)) * ny;
     cx += nx;
     cy += ny;
   }
