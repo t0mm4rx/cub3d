@@ -1,8 +1,8 @@
 const MAP_SIZE = 20;
 const WALLS = 40;
 const MINIMAP_SIZE = 200;
-const RAYS = 80;
-const FOV = 80;
+const RAYS = 400;
+const FOV = 45;
 const ROTATE_SPEED = 4;
 const SPEED = .08;
 
