@@ -1,11 +1,10 @@
 const MAP_SIZE = 20;
 const WALLS = 40;
 const MINIMAP_SIZE = 200;
-const RAYS = 100;
+const RAYS = 80;
 const FOV = 80;
 const ROTATE_SPEED = 4;
 const SPEED = .08;
-const PRECISION = .001;
 
 var minimap = null;
 var map = null;
@@ -18,7 +17,7 @@ var map_fn = null;
 
 function setup()
 {
-
+    frameRate(50);
     angleMode(DEGREES);
 
     createCanvas(1000, 1000);
@@ -50,11 +49,13 @@ function setup()
 
 function draw()
 {
+  //console.log(heading.heading());
     background(0);
     handle_inputs();
     process_rays();
     draw_rays();
     draw_minimap();
+    fill(255);
     text(round(frameRate()), 10, 20);
 }
 
@@ -108,18 +109,8 @@ function process_rays()
 {
     for (let ray of rays)
     {
-        let i = 0;
-        while (i < MAP_SIZE)
-        {
-            let x = round(position.x + ray.x * i);
-            let y = round(position.y + ray.y * i);
-            if (map[x][y] == 1)
-            {
-                ray.distance = position.dist(createVector(position.x + ray.x * i, position.y + ray.y * i));
-                i = MAP_SIZE;
-            }
-            i += PRECISION;
-        }
+        ray.distance = min(MAP_SIZE, raycast_left(ray), raycast_right(ray));
+
     }
 }
 
@@ -137,4 +128,42 @@ function handle_inputs()
         position.add(heading.copy().rotate(-90).mult(SPEED));
     if (keyIsDown(68))
         position.add(heading.copy().rotate(90).mult(SPEED));
+}
+
+function raycast_left(ray)
+{
+  let theta = ray.heading();
+  if (theta >= 90 || theta <= -90)
+    return MAP_SIZE;
+  let cx = position.x;
+  let cy = position.y;
+  while (map[floor(cx)][floor(cy)] == 0 && cx < MAP_SIZE && cy < MAP_SIZE)
+  {
+    let nx = floor(cx + 1) - cx;
+    if (nx == 0)
+      nx = 1;
+    let ny = Math.tan(theta / 360 * (2 * Math.PI)) * nx;
+    cx += nx;
+    cy += ny;
+  }
+  return position.dist(createVector(cx, cy));
+}
+
+function raycast_right(ray)
+{
+  let theta = ray.heading();
+  if (!(theta >= 90 || theta <= -90))
+    return MAP_SIZE;
+  let cx = position.x;
+  let cy = position.y;
+  while (map[floor(cx - 1)][floor(cy)] == 0 && cx > 0 && cy > 0)
+  {
+    let nx = -(cx - floor(cx));
+    if (nx == 0)
+      nx = -1;
+    let ny = Math.tan(theta / 360 * (2 * Math.PI)) * nx;
+    cx += nx;
+    cy += ny;
+  }
+  return position.dist(createVector(cx, cy));
 }
