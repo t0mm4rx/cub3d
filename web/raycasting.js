@@ -1,7 +1,7 @@
 const MAP_SIZE = 20;
 const WALLS = 40;
 const MINIMAP_SIZE = 200;
-const RAYS = 400;
+const RAYS = 100;
 const FOV = 45;
 const ROTATE_SPEED = 4;
 const SPEED = .08;
@@ -64,8 +64,8 @@ function draw_rays()
     noStroke();
     for (let i = 0; i < RAYS; i++)
     {
-        let color = map_fn(rays[i].distance ** 1.3, 0, MAP_SIZE, 255, 0);
-        let h = map_fn(rays[i].distance, 0, MAP_SIZE, height / 2, 10);
+        let color = map_fn(rays[i].distance, 0, MAP_SIZE, 255, 0);
+        let h = map_fn(rays[i].distance/* * Math.cos(rays[i].heading() / 360 * (2 * PI))*/, 0, MAP_SIZE, height, 10);
         fill(color);
         rect(i * resolution, height / 2 + h / 2, resolution, -h);
     }
