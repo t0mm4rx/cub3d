@@ -15,6 +15,13 @@ var heading = null;
 
 var map_fn = null;
 
+var image_texture = null;
+
+function preload()
+{
+    image_texture = loadImage("./res/brick.jpg");
+}
+
 function setup()
 {
     frameRate(50);
