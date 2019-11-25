@@ -9,14 +9,17 @@ INCLUDES = -Llibft -lft -Ilibft -Iincludes -Lmlx -lmlx -Imlx/X11
 SRC := $(wildcard src/*.c)
 OBJ := $(patsubst src/%.c, obj/%.o, $(SRC))
 
+GREEN = \e[1m\e[32m
+RESET = \e[0m
+
 all: $(BINARY)
 
 $(BINARY): $(LIBFT) $(OBJ)
-	@echo "==> Making Cub3D"
+	@echo -e "$(GREEN)==> Making Cub3D$(RESET)"
 	$(COMP) $(INCLUDES) $(OBJ) $(LIBFT) -o $(BINARY)
 
 $(LIBFT): $(LIBFT_OBJ)
-	@echo "==> Making LIBFT"
+	@echo -e "$(GREEN)==> Making LIBFT$(RESET)"
 	ar rcs $(LIBFT) $(LIBFT_OBJ)
 
 libft/%.o: libft/%.c
@@ -27,7 +30,7 @@ obj/%.o: src/%.c
 	$(COMP) $(INCLUDES) -c $< -o $@
 
 run: $(BINARY)
-	@echo "==> Running binary"
+	@echo -e "$(GREEN)==> Running binary$(RESET)"
 	@./$(BINARY)
 
 norme:

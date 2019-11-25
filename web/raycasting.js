@@ -1,10 +1,11 @@
 const MAP_SIZE = 20;
 const WALLS = 40;
 const MINIMAP_SIZE = 200;
-const RAYS = 100;
+const RAYS = 300;
 const FOV = 45;
 const ROTATE_SPEED = 4;
 const SPEED = .08;
+const TEXTURE_SIZE = 64;
 
 var minimap = null;
 var map = null;
@@ -19,7 +20,7 @@ var image_texture = null;
 
 function preload()
 {
-    image_texture = loadImage("./res/brick.jpg");
+    image_texture = loadImage("../res/brick.jpg");
 }
 
 function setup()
@@ -49,6 +50,11 @@ function setup()
         ray.rotate(-FOV / 2);
         ray.rotate(i * FOV / RAYS);
         ray.distance = MAP_SIZE;
+        ray.texture = '';
+        ray.offsetS = 0;
+        ray.offsetN = 0;
+        ray.offsetE = 0;
+        ray.offsetO = 0;
         rays.push(ray);
     }
     position = createVector(MAP_SIZE / 2, MAP_SIZE / 2);
@@ -60,6 +66,10 @@ function draw()
     background(0);
     handle_inputs();
     process_rays();
+    fill(100, 100, 200);
+    rect(0, 0, width, height / 2);
+    fill(40, 200, 20);
+    rect(0, height / 2, width, height / 2);
     draw_rays();
     draw_minimap();
     fill(255);
@@ -72,9 +82,11 @@ function draw_rays()
     for (let i = 0; i < RAYS; i++)
     {
         let color = map_fn(rays[i].distance, 0, MAP_SIZE, 255, 0);
-        let h = map_fn(rays[i].distance/* * Math.cos(rays[i].heading() / 360 * (2 * PI))*/, 0, MAP_SIZE, height, 10);
-        fill(color);
-        rect(i * resolution, height / 2 + h / 2, resolution, -h);
+        //let h = map_fn(rays[i].distance/* * Math.cos(rays[i].heading() / 360 * (2 * PI))*/, 0, MAP_SIZE, height, 10);
+        let h = (height) / rays[i].distance;
+        /*fill(color);
+        rect(i * resolution, height / 2 + h / 2, resolution, -h);*/
+        image(image_texture, i * resolution, height / 2 + h / 2, resolution, -h);
     }
 }
 
@@ -115,7 +127,38 @@ function rotate_rays(angle)
 function process_rays()
 {
     for (let ray of rays)
-        ray.distance = min(MAP_SIZE, raycast_left(ray), raycast_right(ray), raycast_top(ray), raycast_bottom(ray));
+    {
+        let min = MAP_SIZE;
+        let left = raycast_left(ray);
+        let right = raycast_right(ray);
+        let top = raycast_top(ray);
+        let bottom = raycast_bottom(ray);
+        if (left < min)
+        {
+            ray.distance = left;
+            min = left;
+            ray.texture = "O";
+        }
+        if (right < min)
+        {
+            ray.distance = right;
+            min = right;
+            ray.texture = "E";
+        }
+        if (top < min)
+        {
+            ray.distance = top;
+            min = top;
+            ray.texture = "N";
+        }
+        if (bottom < min)
+        {
+            ray.distance = bottom;
+            min = bottom;
+            ray.texture = "S";
+        }
+
+    }
 }
 
 function handle_inputs()
@@ -150,6 +193,7 @@ function raycast_left(ray)
     cx += nx;
     cy += ny;
   }
+  ray.offsetO = cy % TEXTURE_SIZE;
   return position.dist(createVector(cx, cy));
 }
 
@@ -169,6 +213,7 @@ function raycast_right(ray)
     cx += nx;
     cy += ny;
   }
+  ray.offsetE = cy % TEXTURE_SIZE;
   return position.dist(createVector(cx, cy));
 }
 
@@ -188,6 +233,7 @@ function raycast_top(ray)
     cx += nx;
     cy += ny;
   }
+  ray.offsetN = cx % TEXTURE_SIZE;
   return position.dist(createVector(cx, cy));
 }
 
@@ -207,5 +253,6 @@ function raycast_bottom(ray)
     cx += nx;
     cy += ny;
   }
+  ray.offsetS = cx % TEXTURE_SIZE;
   return position.dist(createVector(cx, cy));
 }
