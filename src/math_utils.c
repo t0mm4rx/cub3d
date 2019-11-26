@@ -8,3 +8,12 @@ float	mod(float a, float b)
 	return (a + b);
 }
 
+float	deg_to_rad(float a)
+{
+	return (a / 360 * (2 * M_PI));
+}
+
+float	dist(float a, float b, float x, float y)
+{
+	return sqrt(pow(a - x, 2) + pow(b - y, 2));
+}

@@ -5,7 +5,7 @@ LIBFT_SRC := $(wildcard libft/*.c)
 LIBFT_OBJ := $(patsubst libft/%.c, libft/%.o, $(LIBFT_SRC))
 
 COMP = gcc -Wall -Wextra -Werror -g3 -fsanitize=address
-INCLUDES = -Llibft -lft -Ilibft -Iincludes -Lmlx -lmlx -Imlx/X11
+INCLUDES = -lm -Llibft -lft -Ilibft -Iincludes -Lmlx -lmlx -Imlx/X11
 SRC := $(wildcard src/*.c)
 OBJ := $(patsubst src/%.c, obj/%.o, $(SRC))
 

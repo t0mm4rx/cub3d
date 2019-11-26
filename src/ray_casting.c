@@ -1,49 +1,82 @@
 #include "cub3d.h"
 
-t_ray	**create_ray_array(float angle)
+void	raycast(t_world *world)
 {
 	int	i;
-	float	a;
-	t_ray	**res;
-	t_ray	*temp;
+	float	buffer[4];
+	float	min;
 
-	if (!(res = ft_calloc(sizeof(t_ray *), RAYS)))
-		return (NULL);
-	i = 0;
-	while (i < RAYS)
+	i = -1;
+	while (++i < RAYS)
 	{
-		a = (-FOV / 2) + (FOV / RAYS) * i;
-		temp = ft_calloc(sizeof(t_ray), 1);
-		temp->angle = mod(a + angle, 360.0);
-		temp->texture = 'x';
-		temp->cx = 0;
-		temp->cy = 0;
-		res[i] = temp;
-		i += 1;
+		min = INF;
+		buffer[0] = raycast_left(world->rays[i], world);
+		buffer[1] = raycast_right(world->rays[i], world);
+		buffer[2] = raycast_top(world->rays[i], world);
+		buffer[3] = raycast_bottom(world->rays[i], world);
+		if (buffer[0] < min)
+		{
+			min = buffer[0];
+			world->rays[i]->texture = 'o';
+			world->rays[i]->distance = buffer[0];
+		}
+		if (buffer[1] < min)
+		{
+			min = buffer[1];
+			world->rays[i]->texture = 'e';
+			world->rays[i]->distance = buffer[1];
+		}
+		if (buffer[2] < min)
+		{
+			min = buffer[2];
+			world->rays[i]->texture = 'n';
+			world->rays[i]->distance = buffer[2];
+		}
+		if (buffer[3] < min)
+		{
+			min = buffer[3];
+			world->rays[i]->texture = 's';
+			world->rays[i]->distance = buffer[3];
+		}
 	}
-	return (res);
 }
 
-void	rotate_ray_array(t_ray **rays, float angle)
+float	raycast_left(t_ray *ray, t_world *world)
 {
-	int i;
+	float nx;
+	float ny;
 
-	i = RAYS;
-	while (i--)
+	ray->cx = world->px;
+	ray->cy = world->py;
+	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
+	&& ray->cx > 0 && ray->cy > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy)])
 	{
-		rays[i]->angle += angle;
-		rays[i]->angle = mod(rays[i]->angle, 360.0);
+		nx = floor(ray->cx + 1) - ray->cx;
+		nx = (!nx ? 1 : nx);
+		ny = tan(ray->angle) * nx;
+		ray->cx += nx;
+		ray->cy += ny;
 	}
+	return (dist(ray->cx, ray->cy, world->px, world->py));
 }
 
-void	free_ray_array(t_ray **rays)
+float	raycast_right(t_ray *ray, t_world *world)
 {
-	int i;
+	(void)ray;
+	(void)world;
+	return (INF);
+}
 
-	i = RAYS;
-	while (i--)
-	{
-		free(rays[i]);
-	}
-	free(rays);
+float	raycast_top(t_ray *ray, t_world *world)
+{
+	(void)ray;
+	(void)world;
+	return (INF);
+}
+
+float	raycast_bottom(t_ray *ray, t_world *world)
+{
+	(void)ray;
+	(void)world;
+	return (INF);
 }

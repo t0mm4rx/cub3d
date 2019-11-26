@@ -7,6 +7,9 @@
 
 # define RAYS 100.0
 # define FOV 45.0
+# ifndef INF
+#  define INF 100000000.0
+# endif
 
 typedef struct	s_ray
 {
@@ -17,13 +20,16 @@ typedef struct	s_ray
 	int	offset_n;
 	int	offset_e;
 	int	offset_s;
-	int	cx;
-	int	cy;
+	float	cx;
+	float	cy;
 }		t_ray;
 
 typedef struct	s_world
 {
 	int	**map;
+	t_ray	**rays;
+	int	mx;
+	int	my;
 	float	px;
 	float	py;
 	char	*texture_o;
@@ -35,18 +41,28 @@ typedef struct	s_world
 t_ray		**create_ray_array(float angle);
 void		rotate_ray_array(t_ray **rays, float angle);
 void		free_ray_array(t_ray **rays);
-void		stop_game(void);
+void		raycast(t_world *world);
+float		raycast_left(t_ray *ray, t_world *world);
+float		raycast_right(t_ray *ray, t_world *world);
+float		raycast_top(t_ray *ray, t_world *world);
+float		raycast_bottom(t_ray *ray, t_world *world);
+void		stop_game(t_world *world);
 int		**create_2d_array(int x, int y);
 void		free_2d_array(int **array, int x);
+t_world		*create_world(void);
 
 /*
 ** Utils functions
 */
 float		mod(float a, float b);
+float		deg_to_rad(float a);
+float		dist(float a, float b, float x, float y);
 
 /*
 ** Debug functions
 */
 void		print_ray_array(t_ray **rays);
 void		print_2d_array(int **array, int x, int y);
+void		fill_map_borders(int **array, int x, int y);
+void		print_world(t_world *world);
 #endif
