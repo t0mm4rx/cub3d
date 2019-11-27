@@ -1,29 +1,24 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: pbondoer <pbondoer@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/02/22 23:12:10 by pbondoer          #+#    #+#              #
-#    Updated: 2017/02/03 02:44:22 by pbondoer         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+#
+#
 
-include libmlx.mk
+NOM=libmlx.a
+SRC= mlx_shaders.c mlx_new_window.m mlx_init_loop.m mlx_new_image.m mlx_xpm.c mlx_int_str_to_wordtab.c
+SRC+= mlx_png.c mlx_mouse.m
+OBJ1=$(SRC:.c=.o)
+OBJ=$(OBJ1:.m=.o)
+CFLAGS+=-O2
 
-all: $(MLX_LIB)
+# add to match string put with X11 in size and position
+CFLAGS+= -DSTRINGPUTX11
 
-$(MLX_LIB):
-	@make -C $(MLX_DIR)
-	cp $(MLX_LIB) $(MLX_NAME)
+all: $(NOM)
+
+$(NOM):	$(OBJ)
+	ar -r $(NOM) $(OBJ)
+	ranlib $(NOM)
 
 clean:
-	make -C $(MLX_DIR) clean
-	rm -f $(MLX_NAME)
+	rm -f $(NOM) $(OBJ) *~
+	rm -f mlx_app
 
-fclean: clean
-
-re:
-	@$(MAKE) clean --no-print-directory
-	@$(MAKE) all --no-print-directory
+re: clean all

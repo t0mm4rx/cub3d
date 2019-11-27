@@ -4,6 +4,7 @@
 # include <stdio.h>
 # include <math.h>
 # include "libft.h"
+# include "mlx.h"
 
 # define RAYS 100.0
 # define FOV 45.0
