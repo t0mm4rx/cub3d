@@ -5,7 +5,7 @@ LIBFT_SRC := $(wildcard libft/*.c)
 LIBFT_OBJ := $(patsubst libft/%.c, libft/%.o, $(LIBFT_SRC))
 
 COMP = gcc -Wall -Wextra -Werror -g3 -fsanitize=address
-INCLUDES = -Iincludes -Imlx -Llibft -lft -L/usr/X11/lib -lX11 -lXext -Lmlx -lmlx
+INCLUDES = -Iincludes -Imlx -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
 SRC := $(wildcard src/*.c)
 OBJ := $(patsubst src/%.c, obj/%.o, $(SRC))
 
