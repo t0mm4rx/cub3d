@@ -12,6 +12,14 @@
 #  define INF 100000000.0
 # endif
 
+typedef struct	s_window {
+	void			*win_ptr;
+	void			*mlx_ptr;
+	unsigned int	width;
+	unsigned int	height;
+	const char		*title;
+}				t_window;
+
 typedef struct	s_ray
 {
 	float	angle;
@@ -39,6 +47,22 @@ typedef struct	s_world
 	char	*texture_n;
 }		t_world;
 
+typedef struct	s_game
+{
+	t_window	*window;
+	t_world		*world;
+}				t_game;
+
+/*
+** Window management functions
+*/
+t_window	*create_window(unsigned int width, unsigned int height, const char *title, t_game *game);
+void		close_window(t_window *window);
+
+/*
+** Game functions
+*/
+t_game		*create_game(unsigned int width, unsigned int height, const char *title);
 t_ray		**create_ray_array(float angle);
 void		rotate_ray_array(t_ray **rays, float angle);
 void		free_ray_array(t_ray **rays);
@@ -47,8 +71,8 @@ float		raycast_left(t_ray *ray, t_world *world);
 float		raycast_right(t_ray *ray, t_world *world);
 float		raycast_top(t_ray *ray, t_world *world);
 float		raycast_bottom(t_ray *ray, t_world *world);
-void		stop_game(t_world *world);
-int		**create_2d_array(int x, int y);
+void		stop_game(t_game *game);
+int			**create_2d_array(int x, int y);
 void		free_2d_array(int **array, int x);
 t_world		*create_world(void);
 
