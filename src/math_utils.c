@@ -17,3 +17,11 @@ float	dist(float a, float b, float x, float y)
 {
 	return sqrt(pow(a - x, 2) + pow(b - y, 2));
 }
+
+int		rgb(int r, int g, int b)
+{
+	int c = r;
+	c = (c << 8) | g;
+	c = (c << 8) | b;
+	return c;
+}

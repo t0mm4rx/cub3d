@@ -6,7 +6,7 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define RAYS 100.0
+# define RAYS 50.0
 # define FOV 45.0
 # ifndef INF
 #  define INF 100000000.0
@@ -31,7 +31,7 @@ typedef struct	s_ray
 	int	offset_s;
 	float	cx;
 	float	cy;
-}		t_ray;
+}				t_ray;
 
 typedef struct	s_world
 {
@@ -51,6 +51,7 @@ typedef struct	s_game
 {
 	t_window	*window;
 	t_world		*world;
+	void		(*draw)(struct s_game *);
 }				t_game;
 
 /*
@@ -63,6 +64,7 @@ void		close_window(t_window *window);
 ** Game functions
 */
 t_game		*create_game(unsigned int width, unsigned int height, const char *title);
+void		start_game(t_game *game);
 t_ray		**create_ray_array(float angle);
 void		rotate_ray_array(t_ray **rays, float angle);
 void		free_ray_array(t_ray **rays);
@@ -71,10 +73,12 @@ float		raycast_left(t_ray *ray, t_world *world);
 float		raycast_right(t_ray *ray, t_world *world);
 float		raycast_top(t_ray *ray, t_world *world);
 float		raycast_bottom(t_ray *ray, t_world *world);
+void		draw_rays(t_game *game);
 void		stop_game(t_game *game);
 int			**create_2d_array(int x, int y);
 void		free_2d_array(int **array, int x);
 t_world		*create_world(void);
+void		draw(t_game *game);
 
 /*
 ** Utils functions
@@ -82,6 +86,7 @@ t_world		*create_world(void);
 float		mod(float a, float b);
 float		deg_to_rad(float a);
 float		dist(float a, float b, float x, float y);
+int			rgb(int r, int g, int b);
 
 /*
 ** Debug functions

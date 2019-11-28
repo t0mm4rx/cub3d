@@ -48,3 +48,35 @@ void	free_ray_array(t_ray **rays)
 	}
 	free(rays);
 }
+
+void	draw_rays(t_game *game)
+{
+	float	d;
+	float	c;
+	float	prec;
+	int		i;
+	int		j;
+	int		k;
+
+	prec = game->window->width / RAYS;
+	i = -1;
+	while (++i < RAYS)
+	{
+		d = 400 / game->world->rays[i]->distance;
+		c = 255 / game->world->rays[i]->distance;
+		j = -d / 2 - 1;
+		while (++j < d / 2)
+		{
+			k = -1;
+			while (++k < prec)
+			{
+				mlx_pixel_put(game->window->mlx_ptr,
+						game->window->win_ptr,
+						i * prec + k,
+						(int)(game->window->height / 2 + j),
+						rgb(c, c, c));
+			}
+		}
+	}
+	rotate_ray_array(game->world->rays, 10);
+}

@@ -62,21 +62,59 @@ float	raycast_left(t_ray *ray, t_world *world)
 
 float	raycast_right(t_ray *ray, t_world *world)
 {
-	(void)ray;
-	(void)world;
-	return (INF);
+	float nx;
+	float ny;
+
+	ray->cx = world->px;
+	ray->cy = world->py;
+	while ((int)floor(ray->cx - 1) < world->mx && (int)floor(ray->cy) < world->my
+	&& ray->cx - 1 > 0 && ray->cy > 0 && !world->map[(int)floor(ray->cx - 1)][(int)floor(ray->cy)])
+	{
+		nx = -(ray->cx - floor(ray->cx));
+		nx = (!nx ? -1 : nx);
+		ny = tan(ray->angle) * nx;
+		ray->cx += nx;
+		ray->cy += ny;
+	}
+	return (dist(ray->cx, ray->cy, world->px, world->py));
 }
 
 float	raycast_top(t_ray *ray, t_world *world)
 {
-	(void)ray;
-	(void)world;
-	return (INF);
+	float nx;
+	float ny;
+
+	ray->cx = world->px;
+	ray->cy = world->py;
+	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
+	&& ray->cx > 0 && ray->cy > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy)])
+	{
+		ny = floor(ray->cy + 1) - ray->cy;
+		ny = (!ny ? 1 : ny);
+		nx = tan(90 - ray->angle) * nx;
+		ray->cx += nx;
+		ray->cy += ny;
+	}
+	return (dist(ray->cx, ray->cy, world->px, world->py));
 }
 
 float	raycast_bottom(t_ray *ray, t_world *world)
 {
-	(void)ray;
-	(void)world;
-	return (INF);
+	float nx;
+	float ny;
+
+	ray->cx = world->px;
+	ray->cy = world->py;
+	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy - 1) < world->my
+	&& ray->cx > 0 && ray->cy - 1 > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy - 1)])
+	{
+		ny = -(ray->cy - floor(ray->cy));
+		ny = (!ny ? -1 : ny);
+		nx = tan(90 - ray->angle) * nx;
+		ray->cx += nx;
+		ray->cy += ny;
+	}
+	return (dist(ray->cx, ray->cy, world->px, world->py));
+
+
 }

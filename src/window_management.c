@@ -8,6 +8,13 @@ int			key_hook(int keycode, void *param)
 	return (1);
 }
 
+int			loop_hook(void *param)
+{
+	if (((t_game *)param)->draw)
+		((t_game *)param)->draw(param);
+	return (1);
+}
+
 t_window	*create_window(unsigned int width, unsigned int height, const char *title, t_game *game)
 {
 	t_window	*res;
@@ -20,5 +27,6 @@ t_window	*create_window(unsigned int width, unsigned int height, const char *tit
 	res->mlx_ptr = mlx_init();
 	res->win_ptr = mlx_new_window(res->mlx_ptr, width, height, (char *)title);
 	mlx_key_hook(res->win_ptr, &key_hook, game);
+	mlx_loop_hook(res->mlx_ptr, &loop_hook, game);
 	return (res);
 }

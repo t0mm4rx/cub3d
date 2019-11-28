@@ -7,9 +7,14 @@ t_game	*create_game(unsigned int width, unsigned int height, const char *title)
 	if (!(res = ft_calloc(sizeof(t_game), 1)))
 		return (NULL);
 	res->world = create_world();
+	res->draw = NULL;
 	res->window = create_window(width, height, title, res);
-	mlx_loop(res->window->mlx_ptr);
 	return (res);
+}
+
+void	start_game(t_game *game)
+{
+	mlx_loop(game->window->mlx_ptr);
 }
 
 t_world	*create_world(void)
