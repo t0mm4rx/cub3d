@@ -12,9 +12,11 @@ OBJ := $(patsubst src/%.c, obj/%.o, $(SRC))
 GREEN = \e[1m\e[32m
 RESET = \e[0m
 
+MLX = ./mlx/libmlx.a
+
 all: $(BINARY)
 
-$(BINARY): $(LIBFT) $(OBJ)
+$(BINARY): $(LIBFT) $(MLX) $(OBJ)
 	@echo -e "$(GREEN)==> Making Cub3D$(RESET)"
 	$(COMP) $(INCLUDES) $(OBJ) $(LIBFT) -o $(BINARY)
 
@@ -33,6 +35,10 @@ run: $(BINARY)
 	@echo -e "$(GREEN)==> Running binary$(RESET)"
 	@./$(BINARY)
 
+$(MLX):
+	@echo -e "$(GREEN)==> Making MLX$(RESET)"
+	make -C ./mlx
+
 norme:
 	grep "printf" */*.[ch]
 	norminette *.[ch]
@@ -41,6 +47,7 @@ clean:
 	rm -rf libft/*.o obj/* mlx/*.o
 
 fclean: clean
-	rm -rf $(BINARY) $(LIBFT)
+	rm -rf $(BINARY) *.dSYM $(LIBFT)
+	make -C ./mlx clean
 
 re: fclean all
