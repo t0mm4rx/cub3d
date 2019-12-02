@@ -44,10 +44,10 @@ typedef struct	s_ray
 
 typedef struct	s_world
 {
-	int	**map;
+	int		**map;
 	t_ray	**rays;
-	int	mx;
-	int	my;
+	int		mx;
+	int		my;
 	float	px;
 	float	py;
 	char	*texture_o;
