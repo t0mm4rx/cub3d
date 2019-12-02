@@ -18,14 +18,21 @@ int			loop_hook(void *param)
 t_window	*create_window(unsigned int width, unsigned int height, const char *title, t_game *game)
 {
 	t_window	*res;
+	int			config[3];
 
 	if (!(res = ft_calloc(sizeof(t_window), 1)))
 		return (NULL);
+	config[0] = 8;
+	config[1] = width * 4;
+	config[2] = 0;
 	res->width = width;
 	res->height = height;
 	res->title = title;
 	res->mlx_ptr = mlx_init();
 	res->win_ptr = mlx_new_window(res->mlx_ptr, width, height, (char *)title);
+	res->surface = mlx_new_image(res->mlx_ptr, width, height);
+	res->data = mlx_get_data_addr(res->surface,
+			&config[0], &config[1], &config[2]);
 	mlx_key_hook(res->win_ptr, &key_hook, game);
 	mlx_loop_hook(res->mlx_ptr, &loop_hook, game);
 	return (res);

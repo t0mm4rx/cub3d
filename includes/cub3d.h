@@ -6,15 +6,24 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define RAYS 50.0
+# define RAYS 10.0
 # define FOV 45.0
 # ifndef INF
 #  define INF 100000000.0
 # endif
 
+typedef struct	s_rect {
+	int x;
+	int y;
+	int width;
+	int height;
+}				t_rect;
+
 typedef struct	s_window {
 	void			*win_ptr;
 	void			*mlx_ptr;
+	void			*surface;
+	char			*data;
 	unsigned int	width;
 	unsigned int	height;
 	const char		*title;
@@ -25,10 +34,10 @@ typedef struct	s_ray
 	float	angle;
 	char	texture;
 	float	distance;
-	int	offset_o;
-	int	offset_n;
-	int	offset_e;
-	int	offset_s;
+	int		offset_o;
+	int		offset_n;
+	int		offset_e;
+	int		offset_s;
 	float	cx;
 	float	cy;
 }				t_ray;
@@ -59,6 +68,7 @@ typedef struct	s_game
 */
 t_window	*create_window(unsigned int width, unsigned int height, const char *title, t_game *game);
 void		close_window(t_window *window);
+void		draw_rect(void *data, t_rect rect, int color);
 
 /*
 ** Game functions

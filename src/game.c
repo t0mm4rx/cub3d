@@ -41,6 +41,7 @@ void	stop_game(t_game *game)
 	free_ray_array(game->world->rays);
 	free(game->world);
 	mlx_destroy_window(game->window->mlx_ptr, game->window->win_ptr);
+	mlx_destroy_image(game->window->mlx_ptr, game->window->surface);
 	free(game->window);
 	free(game);
 	exit(EXIT_SUCCESS);
