@@ -1,3 +1,5 @@
+OS := $(shell uname)
+
 BINARY = Cub3D
 
 LIBFT = ./libft/libft.a
@@ -6,6 +8,10 @@ LIBFT_OBJ := $(patsubst libft/%.c, libft/%.o, $(LIBFT_SRC))
 
 COMP = gcc -Wall -Wextra -Werror -g3 -fsanitize=address
 INCLUDES = -Iincludes -Imlx -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit -lm
+ifeq ($(OS), Linux)
+INCLUDES = -Iincludes -I/usr/local/include/ -Llibft -lft -lm -L/usr/local/lib/ -lmlx -lXext -lX11 -lpthread
+endif
+
 SRC := $(wildcard src/*.c)
 OBJ := $(patsubst src/%.c, obj/%.o, $(SRC))
 
