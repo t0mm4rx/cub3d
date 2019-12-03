@@ -22,7 +22,7 @@ t_window	*create_window(unsigned int width, unsigned int height, const char *tit
 
 	if (!(res = ft_calloc(sizeof(t_window), 1)))
 		return (NULL);
-	config[0] = 8;
+	config[0] = 32;
 	config[1] = width * 4;
 	config[2] = 0;
 	res->width = width;
@@ -35,5 +35,18 @@ t_window	*create_window(unsigned int width, unsigned int height, const char *tit
 			&config[0], &config[1], &config[2]);
 	mlx_key_hook(res->win_ptr, &key_hook, game);
 	mlx_loop_hook(res->mlx_ptr, &loop_hook, game);
+	return (res);
+}
+
+t_keys	*create_keys(void)
+{
+	t_keys	*res;
+
+	if (!(res = ft_calloc(sizeof(t_keys), 1)))
+		return (NULL);
+	res->k_up = 0;
+	res->k_down = 0;
+	res->k_left = 0;
+	res->k_right = 0;
 	return (res);
 }

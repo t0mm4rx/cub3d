@@ -42,9 +42,9 @@ void	fill_map_borders(int **array, int x, int y)
 		array[0][i] = 1;
 		array[x - 1][i] = 1;
 	}
-	array[3][3] = 1;
-	array[4][3] = 1;
-	array[4][4] = 1;
+	array[8][8] = 1;
+	array[7][8] = 1;
+	array[7][7] = 1;
 }
 
 void	print_world(t_world *world)

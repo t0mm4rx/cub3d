@@ -6,4 +6,4 @@ libft/*.a
 Cub3D
 *.dSYM
 *.swp
-**/*.swp
+*.o

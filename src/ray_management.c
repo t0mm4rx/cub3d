@@ -51,14 +51,28 @@ void	free_ray_array(t_ray **rays)
 
 void	draw_rays(t_game *game)
 {
-	t_rect rect;
-	int i = 0;
+	t_rect	rect;
+	int			i;
+	int			c;
+	int			res;
+	int			d;
+	char		color[4];
 
-	rect.x = 100;
-	rect.y = 100;
-	rect.width = 300;
-	rect.height = 200;
-	while (i++ < 20000)
-		game->window->data[i] = (char)10;
-	draw_rect(game->window->data, rect, rgb(255, 255, 255));
+	res = game->window->width / RAYS;
+	i = -1;
+	while (++i < RAYS)
+	{
+			c = (int)(255 / game->world->rays[i]->distance);
+			d = (int)(500 / game->world->rays[i]->distance);
+			rect.x = i * res;
+			rect.y = (int)(game->window->height / 2 - d / 2);
+			rect.width = res;
+			rect.height = d;
+			color[0] = c;
+			color[1] = c;
+			color[2] = c;
+			color[3] = 0;
+			draw_rect(game->window, rect, color);
+	}
+	rotate_ray_array(game->world->rays, .6);
 }

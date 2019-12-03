@@ -53,7 +53,7 @@ float	raycast_left(t_ray *ray, t_world *world)
 	{
 		nx = floor(ray->cx + 1) - ray->cx;
 		nx = (!nx ? 1 : nx);
-		ny = tan(ray->angle) * nx;
+		ny = tan(deg_to_rad(ray->angle)) * nx;
 		ray->cx += nx;
 		ray->cy += ny;
 	}
@@ -72,7 +72,7 @@ float	raycast_right(t_ray *ray, t_world *world)
 	{
 		nx = -(ray->cx - floor(ray->cx));
 		nx = (!nx ? -1 : nx);
-		ny = tan(ray->angle) * nx;
+		ny = tan(deg_to_rad(ray->angle)) * nx;
 		ray->cx += nx;
 		ray->cy += ny;
 	}
@@ -90,8 +90,8 @@ float	raycast_top(t_ray *ray, t_world *world)
 	&& ray->cx > 0 && ray->cy > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy)])
 	{
 		ny = floor(ray->cy + 1) - ray->cy;
-		ny = (!ny ? 1 : ny);
-		nx = tan(90 - ray->angle) * nx;
+		ny = (!ny ? -1 : ny);
+		nx = tan(deg_to_rad(90 - ray->angle)) * ny;
 		ray->cx += nx;
 		ray->cy += ny;
 	}
@@ -109,8 +109,8 @@ float	raycast_bottom(t_ray *ray, t_world *world)
 	&& ray->cx > 0 && ray->cy - 1 > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy - 1)])
 	{
 		ny = -(ray->cy - floor(ray->cy));
-		ny = (!ny ? -1 : ny);
-		nx = tan(90 - ray->angle) * nx;
+		ny = (!ny ? 1 : ny);
+		nx = tan(deg_to_rad(90 - ray->angle)) * ny;
 		ray->cx += nx;
 		ray->cy += ny;
 	}

@@ -7,6 +7,7 @@ t_game	*create_game(unsigned int width, unsigned int height, const char *title)
 	if (!(res = ft_calloc(sizeof(t_game), 1)))
 		return (NULL);
 	res->world = create_world();
+	res->keys = create_keys();
 	res->draw = NULL;
 	res->window = create_window(width, height, title, res);
 	return (res);
@@ -43,6 +44,7 @@ void	stop_game(t_game *game)
 	mlx_destroy_window(game->window->mlx_ptr, game->window->win_ptr);
 	mlx_destroy_image(game->window->mlx_ptr, game->window->surface);
 	free(game->window);
+	free(game->keys);
 	free(game);
 	exit(EXIT_SUCCESS);
 }
