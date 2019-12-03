@@ -74,5 +74,4 @@ void	draw_rays(t_game *game)
 			color[3] = 0;
 			draw_rect(game->window, rect, color);
 	}
-	rotate_ray_array(game->world->rays, .6);
 }

@@ -6,6 +6,8 @@
 # include "libft.h"
 # include "mlx.h"
 
+# define PLAYER_SPEED 0.1
+# define ROTATE_SPEED 3.0
 # define RAYS 100.0
 # define FOV 45.0
 # ifndef INF
@@ -80,6 +82,8 @@ void		draw_rect(t_window *window, t_rect rect, char color[4]);
 void		draw_pixel(t_window *window, unsigned int x, unsigned int y,
 									char color[4]);
 void		clear_data(t_window *window);
+int			key_pressed(int key, void *param);
+int			key_released(int key, void *param);
 /*
 ** Game functions
 */

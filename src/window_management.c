@@ -1,13 +1,5 @@
 #include "cub3d.h"
 
-int			key_hook(int keycode, void *param)
-{
-	printf("Key pressed %d\n", keycode);
-	if (keycode == 12 || keycode == 53)
-		stop_game(param);
-	return (1);
-}
-
 int			loop_hook(void *param)
 {
 	if (((t_game *)param)->draw)
@@ -33,7 +25,8 @@ t_window	*create_window(unsigned int width, unsigned int height, const char *tit
 	res->surface = mlx_new_image(res->mlx_ptr, width, height);
 	res->data = mlx_get_data_addr(res->surface,
 			&config[0], &config[1], &config[2]);
-	mlx_key_hook(res->win_ptr, &key_hook, game);
+	mlx_hook(res->win_ptr, 2, 1L << 0, &key_pressed, game);
+	mlx_hook(res->win_ptr, 3, 1L << 0, &key_released, game);
 	mlx_loop_hook(res->mlx_ptr, &loop_hook, game);
 	return (res);
 }
