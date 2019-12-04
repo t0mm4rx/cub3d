@@ -57,3 +57,5 @@ fclean: clean
 	make -C ./mlx clean
 
 re: fclean all
+
+rerun: re run

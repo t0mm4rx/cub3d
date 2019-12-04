@@ -63,7 +63,7 @@ void	draw_rays(t_game *game)
 	while (++i < RAYS)
 	{
 			c = (int)(255 / game->world->rays[i]->distance);
-			d = (int)(500 / game->world->rays[i]->distance);
+			d = (int)(game->window->height / game->world->rays[i]->distance);
 			rect.x = i * res;
 			rect.y = (int)(game->window->height / 2 - d / 2);
 			rect.width = res;

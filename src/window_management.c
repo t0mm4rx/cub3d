@@ -26,7 +26,8 @@ t_window	*create_window(unsigned int width, unsigned int height, const char *tit
 	res->data = mlx_get_data_addr(res->surface,
 			&config[0], &config[1], &config[2]);
 	mlx_hook(res->win_ptr, 2, 1L << 0, &key_pressed, game);
-	mlx_hook(res->win_ptr, 3, 1L << 0, &key_released, game);
+	mlx_hook(res->win_ptr, 3, 1L << 1, &key_released, game);
+	mlx_hook(res->win_ptr, 17, 1L << 17, &program_exited, game);
 	mlx_loop_hook(res->mlx_ptr, &loop_hook, game);
 	return (res);
 }

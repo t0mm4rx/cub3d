@@ -24,7 +24,8 @@ t_world	*create_world(void)
 
 	if (!(res = ft_calloc(sizeof(t_world), 1)))
 		return (NULL);
-	if (!(res->rays = create_ray_array(0)))
+	res->angle = 0;
+	if (!(res->rays = create_ray_array(res->angle)))
 		return (NULL);
 	res->map = create_2d_array(10, 10);
 	res->mx = 10;

@@ -52,4 +52,6 @@ void	print_world(t_world *world)
 	print_ray_array(world->rays);
 	printf("\n");
 	print_2d_array(world->map, world->mx, world->my);
+	printf("\nAngle: %f\n", world->angle);
+	printf("Position: (%10f, %10f)\n", world->px, world->py);
 }

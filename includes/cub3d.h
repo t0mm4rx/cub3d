@@ -26,6 +26,10 @@ typedef struct	s_keys {
 	int k_down;
 	int k_left;
 	int k_right;
+	int k_a;
+	int k_s;
+	int k_d;
+	int k_w;
 }				t_keys;
 
 typedef struct	s_window {
@@ -53,6 +57,7 @@ typedef struct	s_ray
 
 typedef struct	s_world
 {
+	float	angle;
 	int		**map;
 	t_ray	**rays;
 	int		mx;
@@ -84,6 +89,7 @@ void		draw_pixel(t_window *window, unsigned int x, unsigned int y,
 void		clear_data(t_window *window);
 int			key_pressed(int key, void *param);
 int			key_released(int key, void *param);
+int 		program_exited(void *game);
 /*
 ** Game functions
 */
@@ -102,8 +108,10 @@ void		draw_rays(t_game *game);
 void		stop_game(t_game *game);
 int			**create_2d_array(int x, int y);
 void		free_2d_array(int **array, int x);
-t_world		*create_world(void);
+t_world	*create_world(void);
 void		draw(t_game *game);
+void		rotate(t_game *game, int direction);
+void		go(t_game *game, int direction);
 
 /*
 ** Utils functions

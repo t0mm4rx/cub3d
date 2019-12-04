@@ -3,13 +3,17 @@
 void	update(t_game *game)
 {
 	if (game->keys->k_right)
-		rotate_ray_array(game->world->rays, ROTATE_SPEED);
+		rotate(game, 1);
 	if (game->keys->k_left)
-		rotate_ray_array(game->world->rays, -ROTATE_SPEED);
-	if (game->keys->k_up)
-		game->world->px += PLAYER_SPEED;
-	if (game->keys->k_down)
-		game->world->px -= PLAYER_SPEED;
+		rotate(game, -1);
+	if (game->keys->k_up || game->keys->k_w)
+		go(game, 0);
+	if (game->keys->k_down || game->keys->k_s)
+		go(game, 2);
+	if (game->keys->k_a)
+		go(game, 1);
+	if (game->keys->k_d)
+		go(game, 3);
 }
 
 void	draw(t_game *game)
@@ -29,7 +33,7 @@ int		main(void)
 	t_game	*game;
 
 	game = create_game(1000, 800, "Cub3D by tmarx");
-	//print_world(game->world);
+	print_world(game->world);
 	game->draw = &draw;
 	start_game(game);
 	stop_game(game);

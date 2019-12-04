@@ -3,7 +3,7 @@
 void	raycast(t_world *world)
 {
 	int	i;
-	float	buffer[4];
+	float	buffer[4] = {9999};
 	float	min;
 
 	i = -1;
@@ -13,7 +13,9 @@ void	raycast(t_world *world)
 		buffer[0] = raycast_left(world->rays[i], world);
 		buffer[1] = raycast_right(world->rays[i], world);
 		buffer[2] = raycast_top(world->rays[i], world);
-		buffer[3] = raycast_bottom(world->rays[i], world);
+		//buffer[3] = raycast_bottom(world->rays[i], world);
+		//buffer[2] = INF;
+		buffer[3] = INF;
 		if (buffer[0] < min)
 		{
 			min = buffer[0];
@@ -46,6 +48,8 @@ float	raycast_left(t_ray *ray, t_world *world)
 	float nx;
 	float ny;
 
+	if (ray->angle <= 270 && ray->angle >= 90)
+		return (INF);
 	ray->cx = world->px;
 	ray->cy = world->py;
 	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
@@ -65,6 +69,8 @@ float	raycast_right(t_ray *ray, t_world *world)
 	float nx;
 	float ny;
 
+	if (ray->angle >= 270 || ray->angle <= 90)
+		return (INF);
 	ray->cx = world->px;
 	ray->cy = world->py;
 	while ((int)floor(ray->cx - 1) < world->mx && (int)floor(ray->cy) < world->my
@@ -83,7 +89,8 @@ float	raycast_top(t_ray *ray, t_world *world)
 {
 	float nx;
 	float ny;
-
+	if (ray->angle >= 180)
+		return (INF);
 	ray->cx = world->px;
 	ray->cy = world->py;
 	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
@@ -103,6 +110,8 @@ float	raycast_bottom(t_ray *ray, t_world *world)
 	float nx;
 	float ny;
 
+	if (ray->angle <= 180)
+		return (INF);
 	ray->cx = world->px;
 	ray->cy = world->py;
 	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy - 1) < world->my
@@ -115,6 +124,4 @@ float	raycast_bottom(t_ray *ray, t_world *world)
 		ray->cy += ny;
 	}
 	return (dist(ray->cx, ray->cy, world->px, world->py));
-
-
 }
