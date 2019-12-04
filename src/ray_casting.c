@@ -13,9 +13,9 @@ void	raycast(t_world *world)
 		buffer[0] = raycast_left(world->rays[i], world);
 		buffer[1] = raycast_right(world->rays[i], world);
 		buffer[2] = raycast_top(world->rays[i], world);
-		//buffer[3] = raycast_bottom(world->rays[i], world);
+		buffer[3] = raycast_bottom(world->rays[i], world);
 		//buffer[2] = INF;
-		buffer[3] = INF;
+		//buffer[3] = INF;
 		if (buffer[0] < min)
 		{
 			min = buffer[0];
@@ -97,7 +97,7 @@ float	raycast_top(t_ray *ray, t_world *world)
 	&& ray->cx > 0 && ray->cy > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy)])
 	{
 		ny = floor(ray->cy + 1) - ray->cy;
-		ny = (!ny ? -1 : ny);
+		ny = (!ny ? 1 : ny);
 		nx = tan(deg_to_rad(90 - ray->angle)) * ny;
 		ray->cx += nx;
 		ray->cy += ny;
@@ -118,7 +118,7 @@ float	raycast_bottom(t_ray *ray, t_world *world)
 	&& ray->cx > 0 && ray->cy - 1 > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy - 1)])
 	{
 		ny = -(ray->cy - floor(ray->cy));
-		ny = (!ny ? 1 : ny);
+		ny = (!ny ? -1 : ny);
 		nx = tan(deg_to_rad(90 - ray->angle)) * ny;
 		ray->cx += nx;
 		ray->cy += ny;

@@ -23,7 +23,7 @@ void	draw(t_game *game)
 	clear_data(game->window);
 	raycast(game->world);
 	draw_rays(game);
-	print_world(game->world);
+	//print_world(game->world);
 	mlx_put_image_to_window(game->window->mlx_ptr, game->window->win_ptr,
 			game->window->surface, 0, 0);
 }
