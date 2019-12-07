@@ -52,11 +52,11 @@ void	free_ray_array(t_ray **rays)
 void	draw_rays(t_game *game)
 {
 	t_rect	rect;
-	int			i;
-	int			c;
-	int			res;
-	int			d;
-	char		color[4];
+	int				i;
+	int				c;
+	int				res;
+	int				d;
+	unsigned char	color[4];
 
 	res = game->window->width / RAYS;
 	i = -1;
@@ -68,10 +68,7 @@ void	draw_rays(t_game *game)
 			rect.y = (int)(game->window->height / 2 - d / 2);
 			rect.width = res;
 			rect.height = d;
-			color[0] = c;
-			color[1] = c;
-			color[2] = c;
-			color[3] = 0;
+			set_color(color, c, c, c);
 			draw_rect(game->window, rect, color);
 	}
 }

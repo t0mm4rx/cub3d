@@ -22,8 +22,8 @@ void	draw(t_game *game)
 	mlx_clear_window(game->window->mlx_ptr, game->window->win_ptr);
 	clear_data(game->window);
 	raycast(game->world);
+	draw_ceil_ground(game);
 	draw_rays(game);
-	//print_world(game->world);
 	mlx_put_image_to_window(game->window->mlx_ptr, game->window->win_ptr,
 			game->window->surface, 0, 0);
 }
@@ -33,7 +33,8 @@ int		main(void)
 	t_game	*game;
 
 	game = create_game(1000, 800, "Cub3D by tmarx");
-	print_world(game->world);
+	set_color(game->world->color_ceil, 150, 80, 40);
+	set_color(game->world->color_ground, 20, 50, 120);
 	game->draw = &draw;
 	start_game(game);
 	stop_game(game);

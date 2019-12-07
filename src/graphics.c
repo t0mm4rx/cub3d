@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	draw_rect(t_window *window, t_rect rect, char color[4])
+void	draw_rect(t_window *window, t_rect rect, unsigned char color[4])
 {
 	int i;
 	int j;
@@ -10,16 +10,14 @@ void	draw_rect(t_window *window, t_rect rect, char color[4])
 	{
 		j = -1;
 		while (++j < rect.height)
-		{
 			draw_pixel(window, rect.x + i, rect.y + j, color);
-		}
 	}
 }
 
 void	clear_data(t_window *window)
 {
-	t_rect	rect;
-	char		color[4];
+	t_rect			rect;
+	unsigned char	color[4];
 
 	color[0] = 0;
 	color[1] = 0;
@@ -33,7 +31,7 @@ void	clear_data(t_window *window)
 }
 
 void	draw_pixel(t_window *window, unsigned int x, unsigned int y,
-	char color[4])
+	unsigned char color[4])
 {
 	int index;
 	int	i;

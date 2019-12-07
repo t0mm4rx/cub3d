@@ -8,7 +8,7 @@
 
 # define PLAYER_SPEED 0.1
 # define ROTATE_SPEED 3.0
-# define RAYS 100.0
+# define RAYS 50.0
 # define FOV 45.0
 # ifndef INF
 #  define INF 100000000.0
@@ -58,16 +58,18 @@ typedef struct	s_ray
 typedef struct	s_world
 {
 	float	angle;
-	int		**map;
-	t_ray	**rays;
-	int		mx;
-	int		my;
-	float	px;
-	float	py;
-	char	*texture_o;
-	char	*texture_e;
-	char	*texture_s;
-	char	*texture_n;
+	int				**map;
+	t_ray			**rays;
+	int				mx;
+	int				my;
+	float			px;
+	float			py;
+	char			*texture_o;
+	char			*texture_e;
+	char			*texture_s;
+	char			*texture_n;
+	unsigned char	color_ceil[4];
+	unsigned char	color_ground[4];
 }		t_world;
 
 typedef struct	s_game
@@ -83,13 +85,14 @@ typedef struct	s_game
 */
 t_window	*create_window(unsigned int width, unsigned int height, const char *title, t_game *game);
 void		close_window(t_window *window);
-void		draw_rect(t_window *window, t_rect rect, char color[4]);
+void		draw_rect(t_window *window, t_rect rect, unsigned char color[4]);
 void		draw_pixel(t_window *window, unsigned int x, unsigned int y,
-									char color[4]);
+									unsigned char color[4]);
 void		clear_data(t_window *window);
 int			key_pressed(int key, void *param);
 int			key_released(int key, void *param);
 int 		program_exited(void *game);
+
 /*
 ** Game functions
 */
@@ -108,10 +111,11 @@ void		draw_rays(t_game *game);
 void		stop_game(t_game *game);
 int			**create_2d_array(int x, int y);
 void		free_2d_array(int **array, int x);
-t_world	*create_world(void);
+t_world		*create_world(void);
 void		draw(t_game *game);
 void		rotate(t_game *game, int direction);
 void		go(t_game *game, int direction);
+void		draw_ceil_ground(t_game *game);
 
 /*
 ** Utils functions
@@ -119,6 +123,7 @@ void		go(t_game *game, int direction);
 float		mod(float a, float b);
 float		deg_to_rad(float a);
 float		dist(float a, float b, float x, float y);
+void		set_color(unsigned char dest[4], unsigned char r, unsigned char g, unsigned char b);
 
 /*
 ** Debug functions
