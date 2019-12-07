@@ -17,3 +17,17 @@ float	dist(float a, float b, float x, float y)
 {
 	return sqrt(pow(a - x, 2) + pow(b - y, 2));
 }
+
+int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+int	min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}

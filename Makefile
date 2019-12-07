@@ -46,8 +46,8 @@ $(MLX):
 	make -C ./mlx
 
 norme:
-	grep "printf" */*.[ch]
-	norminette *.[ch]
+	#grep "printf" */*.[ch]
+	norminette src/*
 
 clean:
 	rm -rf libft/*.o obj/* mlx/*.o

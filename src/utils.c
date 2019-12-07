@@ -17,11 +17,16 @@ void	rotate(t_game *game, int direction)
 
 void	go(t_game *game, int direction)
 {
-  if (direction == 0)
-  {
-    game->world->px += cos(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
-    game->world->py += sin(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
-  }
+	float	pos_x;
+	float	pos_y;
+
+	pos_x = game->world->px;
+	pos_y = game->world->py;
+	if (direction == 0)
+	{
+		game->world->px += cos(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
+		game->world->py += sin(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
+	}
   if (direction == 1)
   {
     game->world->px += cos(deg_to_rad(game->world->angle - 90)) * PLAYER_SPEED;
@@ -37,6 +42,11 @@ void	go(t_game *game, int direction)
     game->world->px += cos(deg_to_rad(game->world->angle + 90)) * PLAYER_SPEED;
     game->world->py += sin(deg_to_rad(game->world->angle + 90)) * PLAYER_SPEED;
   }
+	if (game->world->map[(int)floor(game->world->px)][(int)floor(game->world->py)])
+	{
+		game->world->px = pos_x;
+		game->world->py = pos_y;
+	}
 }
 
 void	draw_ceil_ground(t_game *game)

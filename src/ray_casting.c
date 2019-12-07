@@ -73,7 +73,7 @@ float	raycast_right(t_ray *ray, t_world *world)
 		return (INF);
 	ray->cx = world->px;
 	ray->cy = world->py;
-	while ((int)floor(ray->cx - 1) < world->mx && (int)floor(ray->cy) < world->my
+	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
 	&& ray->cx - 1 > 0 && ray->cy > 0 && !world->map[(int)floor(ray->cx - 1)][(int)floor(ray->cy)])
 	{
 		nx = -(ray->cx - floor(ray->cx));
@@ -114,8 +114,8 @@ float	raycast_bottom(t_ray *ray, t_world *world)
 		return (INF);
 	ray->cx = world->px;
 	ray->cy = world->py;
-	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy - 1) < world->my
-	&& ray->cx > 0 && ray->cy - 1 > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy - 1)])
+	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
+	&& ray->cx > 0 && ray->cy - 1 > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy)])
 	{
 		ny = -(ray->cy - floor(ray->cy));
 		ny = (!ny ? -1 : ny);

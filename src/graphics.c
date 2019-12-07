@@ -36,6 +36,8 @@ void	draw_pixel(t_window *window, unsigned int x, unsigned int y,
 	int index;
 	int	i;
 
+	if (x >= window->width || y >= window->height)
+		return ;
 	index = x * 4 + y * 4 * window->width;
 	i = -1;
 	while (++i < 4)

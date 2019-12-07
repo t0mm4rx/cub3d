@@ -8,7 +8,7 @@
 
 # define PLAYER_SPEED 0.1
 # define ROTATE_SPEED 3.0
-# define RAYS 50.0
+# define RAYS 200.0
 # define FOV 45.0
 # ifndef INF
 #  define INF 100000000.0
@@ -124,6 +124,10 @@ float		mod(float a, float b);
 float		deg_to_rad(float a);
 float		dist(float a, float b, float x, float y);
 void		set_color(unsigned char dest[4], unsigned char r, unsigned char g, unsigned char b);
+int			min(int a, int b);
+int			max(int a, int b);
+float		minf(float a, float b);
+float		maxf(float a, float b);
 
 /*
 ** Debug functions
