@@ -115,7 +115,7 @@ float	raycast_bottom(t_ray *ray, t_world *world)
 	ray->cx = world->px;
 	ray->cy = world->py;
 	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
-	&& ray->cx > 0 && ray->cy - 1 > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy)])
+	&& ray->cx > 0 && ray->cy - 1 > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy - 1)])
 	{
 		ny = -(ray->cy - floor(ray->cy));
 		ny = (!ny ? -1 : ny);
