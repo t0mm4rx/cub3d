@@ -55,9 +55,14 @@ void	draw_ceil_ground(t_game *game)
 
 	rect.x = 0;
 	rect.y = 0;
-	rect.height = game->window->height / 2;
+	rect.height = game->window->height / 2 + game->world->pz;
 	rect.width = game->window->width;
 	draw_rect(game->window, rect, game->world->color_ceil);
 	rect.y = rect.height;
 	draw_rect(game->window, rect, game->world->color_ground);
+}
+void	jump(t_game *game)
+{
+	if (game->world->jump_time == -1)
+		game->world->jump_time = 0;
 }

@@ -32,6 +32,8 @@ t_world	*create_world(void)
 	res->my = 10;
 	res->px = 5;
 	res->py = 5;
+	res->pz = 0;
+	res->jump_time = -1;
 	fill_map_borders(res->map, res->mx, res->my);
 	return (res);
 }

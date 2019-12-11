@@ -10,6 +10,7 @@
 # define ROTATE_SPEED 3.0
 # define RAYS 200.0
 # define FOV 45.0
+# define JUMP_HEIGHT 10.0
 # ifndef INF
 #  define INF 100000000.0
 # endif
@@ -57,13 +58,15 @@ typedef struct	s_ray
 
 typedef struct	s_world
 {
-	float	angle;
+	float			angle;
 	int				**map;
 	t_ray			**rays;
 	int				mx;
 	int				my;
 	float			px;
 	float			py;
+	float			pz;
+	float			jump_time;
 	char			*texture_o;
 	char			*texture_e;
 	char			*texture_s;
@@ -116,6 +119,8 @@ void		draw(t_game *game);
 void		rotate(t_game *game, int direction);
 void		go(t_game *game, int direction);
 void		draw_ceil_ground(t_game *game);
+void		jump(t_game *game);
+void		update_jump(t_game *game);
 
 /*
 ** Utils functions

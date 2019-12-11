@@ -14,6 +14,7 @@ void	update(t_game *game)
 		go(game, 1);
 	if (game->keys->k_d)
 		go(game, 3);
+	update_jump(game);
 }
 
 void	draw(t_game *game)
@@ -21,7 +22,7 @@ void	draw(t_game *game)
 	update(game);
 	mlx_clear_window(game->window->mlx_ptr, game->window->win_ptr);
 	clear_data(game->window);
-	print_world(game->world);
+	//print_world(game->world);
 	raycast(game->world);
 	draw_ceil_ground(game);
 	draw_rays(game);

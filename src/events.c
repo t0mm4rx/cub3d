@@ -19,7 +19,9 @@ int key_pressed(int key, void *game)
   if (key == 13)
     ((t_game*)game)->keys->k_w = 1;
   if (key == 1)
-    ((t_game*)game)->keys->k_s = 1;
+      ((t_game*)game)->keys->k_s = 1;
+  if (key == 49)
+      jump(game);
   return (0);
 }
 

@@ -65,7 +65,7 @@ void	draw_rays(t_game *game)
 			c = (255 / maxf(game->world->rays[i]->distance, 1.0));
 			d = (int)(game->window->height / game->world->rays[i]->distance);
 			rect.x = i * res;
-			rect.y = (int)(game->window->height / 2 - d / 2);
+			rect.y = (int)(game->window->height / 2 - d / 2) + game->world->pz;
 			rect.width = res;
 			rect.height = d;
 			set_color(color, c, c, c);
