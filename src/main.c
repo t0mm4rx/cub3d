@@ -26,6 +26,7 @@ void	draw(t_game *game)
 	raycast(game->world);
 	draw_ceil_ground(game);
 	draw_rays(game);
+	draw_hud(game);
 	mlx_put_image_to_window(game->window->mlx_ptr, game->window->win_ptr,
 			game->window->surface, 0, 0);
 }

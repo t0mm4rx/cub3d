@@ -100,7 +100,7 @@ int 		program_exited(void *game);
 /*
 ** Game functions
 */
-t_game		*create_game(unsigned int width, unsigned int height, const char *title);
+t_game	*create_game(unsigned int width, unsigned int height, const char *title);
 void		start_game(t_game *game);
 t_ray		**create_ray_array(float angle);
 t_keys	*create_keys(void);
@@ -115,13 +115,14 @@ void		draw_rays(t_game *game);
 void		stop_game(t_game *game);
 int			**create_2d_array(int x, int y);
 void		free_2d_array(int **array, int x);
-t_world		*create_world(void);
+t_world	*create_world(void);
 void		draw(t_game *game);
 void		rotate(t_game *game, int direction);
 void		go(t_game *game, int direction);
 void		draw_ceil_ground(t_game *game);
 void		jump(t_game *game);
 void		update_jump(t_game *game);
+void		draw_hud(t_game *game);
 
 /*
 ** Utils functions

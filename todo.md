@@ -9,7 +9,7 @@
 ## Bonuses 🚀
 - [x] Jump
 - [x] Collisions
-- [ ] HUD
+- [x] HUD
 - [ ] Sounds
 
 ## Bugs 🐞
