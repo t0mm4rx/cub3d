@@ -17,6 +17,6 @@
 - [x] When on wall, color flashes
 - [x] East texture, floor ? cx - 1 ?
 - [ ] When on wall, loop
-- [ ] When close to a wall, disapeare
+- [ ] When close to a wall, distance 0
 - [x] Segfault hunting
 - [x] One side floor bug

@@ -4,6 +4,7 @@
 # include <stdio.h>
 # include <math.h>
 # include "libft.h"
+# include "get_next_line.h"
 # include "mlx.h"
 
 # define PLAYER_SPEED 0.1
