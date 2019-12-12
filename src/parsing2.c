@@ -52,7 +52,7 @@ void		parse_texture(char *line, t_info *info)
 void		parse_color(char *line, t_info *info)
 {
   char          type;
-  unsigned char res[3] = {0};
+  unsigned char res[3];
 
   type = *line;
   line += 2;
@@ -67,6 +67,6 @@ void		parse_color(char *line, t_info *info)
   res[2] = (unsigned char)ft_atoi(line);
   if (type == 'C')
     set_color(info->ceil, res[0], res[1], res[2]);
-  if (type == 'F')
+  else if (type == 'F')
     set_color(info->floor, res[0], res[1], res[2]);
 }
