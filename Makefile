@@ -39,7 +39,7 @@ obj/%.o: src/%.c
 
 run: $(BINARY)
 	@echo -e "$(GREEN)==> Running binary$(RESET)"
-	@./$(BINARY)
+	@./$(BINARY) ./res/map1.cub
 
 $(MLX):
 	@echo -e "$(GREEN)==> Making MLX$(RESET)"

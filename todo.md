@@ -5,6 +5,7 @@
 - [ ] -save arg
 - [ ] Map parsing
 - [ ] Print textures 😭😭
+- [ ] Draw sprite
 
 ## Bonuses 🚀
 - [ ] Sounds --> see external libs

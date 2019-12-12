@@ -31,15 +31,19 @@ void	draw(t_game *game)
 			game->window->surface, 0, 0);
 }
 
-int		main(void)
+int		main(int argc, char **argv)
 {
-	t_game	*game;
+	/*t_game	*game;
 
 	game = create_game(600, 400, "Cub3D by tmarx");
 	set_color(game->world->color_ceil, 150, 80, 40);
 	set_color(game->world->color_ground, 20, 50, 120);
 	game->draw = &draw;
 	start_game(game);
-	stop_game(game);
+	stop_game(game);*/
+	if (argc < 2 || argc > 3)
+		parsing_error(NULL);
+	t_info *info = parse(argv[1]);
+	print_info(info);
 	return (0);
 }

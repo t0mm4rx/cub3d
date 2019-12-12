@@ -2,6 +2,7 @@
 # define CUB3D_H
 
 # include <stdio.h>
+# include <unistd.h>
 # include <math.h>
 # include "libft.h"
 # include "get_next_line.h"
@@ -59,19 +60,20 @@ typedef struct	s_ray
 
 typedef struct	s_world
 {
-	float			angle;
-	int				**map;
-	t_ray			**rays;
-	int				mx;
-	int				my;
-	float			px;
-	float			py;
-	float			pz;
-	float			jump_time;
-	char			*texture_o;
-	char			*texture_e;
-	char			*texture_s;
-	char			*texture_n;
+	float					angle;
+	int						**map;
+	t_ray					**rays;
+	int						mx;
+	int						my;
+	float					px;
+	float					py;
+	float					pz;
+	float					jump_time;
+	char					*texture_o;
+	char					*texture_e;
+	char					*texture_s;
+	char					*texture_n;
+	char					*texture_sprite;
 	unsigned char	color_ceil[4];
 	unsigned char	color_ground[4];
 }		t_world;
@@ -83,6 +85,24 @@ typedef struct	s_game
 	t_keys		*keys;
 	void		(*draw)(struct s_game *);
 }				t_game;
+
+typedef struct	s_info
+{
+	char					*texture_e;
+	char					*texture_w;
+	char					*texture_n;
+	char					*texture_s;
+	char					*texture_sprite;
+	int						**map;
+	int						width;
+	int						height;
+	int						px;
+	int						py;
+	int						angle;
+	unsigned char	ceil[3];
+	unsigned char	floor[3];
+	int						map_started;
+}								t_info;
 
 /*
 ** Window management functions
@@ -125,6 +145,19 @@ void		update_jump(t_game *game);
 void		draw_hud(t_game *game);
 
 /*
+** Parsing functions
+*/
+t_info	*parse(char *file);
+void 		handle_line(char *line, t_info *info);
+int			check_parsing(t_info *info);
+void		parsing_error(t_info *info);
+void		handle_line_map(char *line, t_info *info);
+void		handle_line_info(char *line, t_info *info);
+void		parse_resolution(char *line, t_info *info);
+void		parse_texture(char *line, t_info *info);
+void		parse_color(char *line, t_info *info);
+
+/*
 ** Utils functions
 */
 float		mod(float a, float b);
@@ -143,4 +176,5 @@ void		print_ray_array(t_ray **rays);
 void		print_2d_array(int **array, int x, int y);
 void		fill_map_borders(int **array, int x, int y);
 void		print_world(t_world *world);
+void		print_info(t_info *info);
 #endif
