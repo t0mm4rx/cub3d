@@ -52,7 +52,7 @@ void		parse_texture(char *line, t_info *info)
 void		parse_color(char *line, t_info *info)
 {
   char          type;
-  unsigned char res[3];
+  unsigned char res[3] = {0};
 
   type = *line;
   line += 2;
