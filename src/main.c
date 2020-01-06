@@ -33,19 +33,10 @@ void	draw(t_game *game)
 
 int		main(int argc, char **argv)
 {
-	/*t_game	*game;
-
-	game = create_game(600, 400, "Cub3D by tmarx");
-	set_color(game->world->color_ceil, 150, 80, 40);
-	set_color(game->world->color_ground, 20, 50, 120);
-	game->draw = &draw;
-	start_game(game);
-	stop_game(game);*/
 	if (argc < 2 || argc > 3)
 		parsing_error(NULL);
 	t_game *game;
 	t_info *info = parse(argv[1]);
-	print_2d_array(info->map, info->map_width, info->map_height);
 	game = create_game(info, "Cub3D by tmarx");
 	destroy_info(info);
 	set_color(game->world->color_ceil, 150, 80, 40);

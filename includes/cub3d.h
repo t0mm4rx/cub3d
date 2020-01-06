@@ -10,7 +10,7 @@
 
 # define PLAYER_SPEED 0.1
 # define ROTATE_SPEED 3.0
-# define RAYS 200.0
+# define RAYS 90.0
 # define FOV 45.0
 # define JUMP_HEIGHT 10.0
 # ifndef INF
@@ -50,12 +50,16 @@ typedef struct	s_ray
 	float	angle;
 	char	texture;
 	float	distance;
-	int		offset_o;
-	int		offset_n;
-	int		offset_e;
-	int		offset_s;
-	float	cx;
-	float	cy;
+	float side_dist_x;
+	float side_dist_y;
+	float delta_dist_x;
+	float delta_dist_y;
+	float ray_dir_x;
+	float ray_dir_y;
+	float step_x;
+	float step_y;
+	int		map_x;
+	int		map_y;
 }				t_ray;
 
 typedef struct	s_world

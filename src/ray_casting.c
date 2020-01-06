@@ -1,127 +1,76 @@
 #include "cub3d.h"
 
+static void raycast_init(t_world *world, t_ray *ray)
+{
+	if (ray->ray_dir_x < 0)
+	{
+		ray->step_x = -1;
+		ray->side_dist_x = (world->px - ray->map_x) * ray->delta_dist_x;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->side_dist_x = (1 + ray->map_x - world->px) * ray->delta_dist_x;
+	}
+	if (ray->ray_dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->side_dist_y = (world->py - ray->map_y) * ray->delta_dist_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->side_dist_y = (1 + ray->map_y - world->py) * ray->delta_dist_y;
+	}
+}
+
+static void raycast_while(t_world *world, t_ray *ray, int *side)
+{
+	while (world->map[ray->map_x][ray->map_y] != 1)
+	{
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
+			*side = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
+			*side = 1;
+		}
+	}
+}
+
+static void	raycast_ray(t_world *world, t_ray *ray)
+{
+	int		side;
+
+	ray->map_x = floor(world->px);
+	ray->map_y = floor(world->py);
+	ray->ray_dir_x = cos(deg_to_rad(ray->angle));
+	ray->ray_dir_y = sin(deg_to_rad(ray->angle));
+	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+	raycast_init(world, ray);
+	raycast_while(world, ray, &side);
+	if (side == 0)
+		ray->distance = (ray->map_x - world->px + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+  else
+		ray->distance = (ray->map_y - world->py + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+}
+
 void	raycast(t_world *world)
 {
 	int	i;
-	float	buffer[4] = {9999};
 	float	min;
 
 	i = -1;
 	while (++i < RAYS)
 	{
 		min = INF;
-		buffer[0] = raycast_left(world->rays[i], world);
-		buffer[1] = raycast_right(world->rays[i], world);
-		buffer[2] = raycast_top(world->rays[i], world);
-		buffer[3] = raycast_bottom(world->rays[i], world);
-		//buffer[2] = INF;
-		//buffer[3] = INF;
-		if (buffer[0] < min)
-		{
-			min = buffer[0];
-			world->rays[i]->texture = 'o';
-			world->rays[i]->distance = buffer[0];
-		}
-		if (buffer[1] < min)
-		{
-			min = buffer[1];
-			world->rays[i]->texture = 'e';
-			world->rays[i]->distance = buffer[1];
-		}
-		if (buffer[2] < min)
-		{
-			min = buffer[2];
-			world->rays[i]->texture = 'n';
-			world->rays[i]->distance = buffer[2];
-		}
-		if (buffer[3] < min)
-		{
-			min = buffer[3];
-			world->rays[i]->texture = 's';
-			world->rays[i]->distance = buffer[3];
-		}
+		raycast_ray(world, world->rays[i]);
+		world->rays[i]->texture = 's';
 	}
-}
-
-float	raycast_left(t_ray *ray, t_world *world)
-{
-	float nx;
-	float ny;
-
-	if (ray->angle <= 270 && ray->angle >= 90)
-		return (INF);
-	ray->cx = world->px;
-	ray->cy = world->py;
-	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
-	&& ray->cx > 0 && ray->cy > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy)])
-	{
-		nx = floor(ray->cx + 1) - ray->cx;
-		nx = (!nx ? 1 : nx);
-		ny = tan(deg_to_rad(ray->angle)) * nx;
-		ray->cx += nx;
-		ray->cy += ny;
-	}
-	return (dist(ray->cx, ray->cy, world->px, world->py));
-}
-
-float	raycast_right(t_ray *ray, t_world *world)
-{
-	float nx;
-	float ny;
-
-	if (ray->angle >= 270 || ray->angle <= 90)
-		return (INF);
-	ray->cx = world->px;
-	ray->cy = world->py;
-	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
-	&& ray->cx - 1 > 0 && ray->cy > 0 && !world->map[(int)floor(ray->cx - 1)][(int)floor(ray->cy)])
-	{
-		nx = -(ray->cx - floor(ray->cx));
-		nx = (!nx ? -1 : nx);
-		ny = tan(deg_to_rad(ray->angle)) * nx;
-		ray->cx += nx;
-		ray->cy += ny;
-	}
-	return (dist(ray->cx, ray->cy, world->px, world->py));
-}
-
-float	raycast_top(t_ray *ray, t_world *world)
-{
-	float nx;
-	float ny;
-	if (ray->angle >= 180)
-		return (INF);
-	ray->cx = world->px;
-	ray->cy = world->py;
-	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
-	&& ray->cx > 0 && ray->cy > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy)])
-	{
-		ny = floor(ray->cy + 1) - ray->cy;
-		ny = (!ny ? 1 : ny);
-		nx = tan(deg_to_rad(90 - ray->angle)) * ny;
-		ray->cx += nx;
-		ray->cy += ny;
-	}
-	return (dist(ray->cx, ray->cy, world->px, world->py));
-}
-
-float	raycast_bottom(t_ray *ray, t_world *world)
-{
-	float nx;
-	float ny;
-
-	if (ray->angle <= 180)
-		return (INF);
-	ray->cx = world->px;
-	ray->cy = world->py;
-	while ((int)floor(ray->cx) < world->mx && (int)floor(ray->cy) < world->my
-	&& ray->cx > 0 && ray->cy - 1 > 0 && !world->map[(int)floor(ray->cx)][(int)floor(ray->cy - 1)])
-	{
-		ny = -(ray->cy - floor(ray->cy));
-		ny = (!ny ? -1 : ny);
-		nx = tan(deg_to_rad(90 - ray->angle)) * ny;
-		ray->cx += nx;
-		ray->cy += ny;
-	}
-	return (dist(ray->cx, ray->cy, world->px, world->py));
 }

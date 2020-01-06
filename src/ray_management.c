@@ -17,8 +17,6 @@ t_ray	**create_ray_array(float angle)
 		temp->angle = mod(a + angle, 360.0);
 		temp->texture = 'x';
 		temp->distance = INF;
-		temp->cx = 0;
-		temp->cy = 0;
 		res[i] = temp;
 		i += 1;
 	}
@@ -43,9 +41,7 @@ void	free_ray_array(t_ray **rays)
 
 	i = RAYS;
 	while (i--)
-	{
 		free(rays[i]);
-	}
 	free(rays);
 }
 
@@ -58,7 +54,7 @@ void	draw_rays(t_game *game)
 	int				d;
 	unsigned char	color[4];
 
-	res = game->window->width / RAYS;
+	res = ceil(game->window->width / RAYS);
 	i = -1;
 	while (++i < RAYS)
 	{
