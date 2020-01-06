@@ -101,7 +101,7 @@ typedef struct	s_info
 	int						map_height;
 	int						px;
 	int						py;
-	int						angle;
+	char					orientation;
 	unsigned char	ceil[3];
 	unsigned char	floor[3];
 	int						map_started;

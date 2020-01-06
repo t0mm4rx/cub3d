@@ -24,7 +24,13 @@ t_world	*create_world(t_info *info)
 
 	if (!(res = ft_calloc(sizeof(t_world), 1)))
 		return (NULL);
-	res->angle = info->angle;
+	res->angle = 0;
+	if (info->orientation == 'N')
+		res->angle = -90;
+	if (info->orientation == 'W')
+		res->angle = 180;
+	if (info->orientation == 'S')
+		res->angle = 90;
 	if (!(res->rays = create_ray_array(res->angle)))
 		return (NULL);
 	res->map = info->map;

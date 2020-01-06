@@ -76,6 +76,7 @@ void          create_map(t_info *info)
       {
         info->px = x;
         info->py = y;
+        info->orientation = *line;
       }
       else
         info->map[x][y] = ft_atoi(line);
