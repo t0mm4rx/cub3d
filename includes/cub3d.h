@@ -93,9 +93,12 @@ typedef struct	s_info
 	char					*texture_n;
 	char					*texture_s;
 	char					*texture_sprite;
+	t_list				*map_tmp;
 	int						**map;
 	int						width;
 	int						height;
+	int						map_width;
+	int						map_height;
 	int						px;
 	int						py;
 	int						angle;
@@ -120,7 +123,7 @@ int 		program_exited(void *game);
 /*
 ** Game functions
 */
-t_game	*create_game(unsigned int width, unsigned int height, const char *title);
+t_game	*create_game(t_info *info, const char *title);
 void		start_game(t_game *game);
 t_ray		**create_ray_array(float angle);
 t_keys	*create_keys(void);
@@ -135,7 +138,7 @@ void		draw_rays(t_game *game);
 void		stop_game(t_game *game);
 int			**create_2d_array(int x, int y);
 void		free_2d_array(int **array, int x);
-t_world	*create_world(void);
+t_world	*create_world(t_info *info);
 void		draw(t_game *game);
 void		rotate(t_game *game, int direction);
 void		go(t_game *game, int direction);
@@ -156,6 +159,9 @@ void		handle_line_info(char *line, t_info *info);
 void		parse_resolution(char *line, t_info *info);
 void		parse_texture(char *line, t_info *info);
 void		parse_color(char *line, t_info *info);
+void		destroy_info(t_info *info);
+int			check_map(t_info *info);
+void		create_map(t_info *info);
 
 /*
 ** Utils functions
@@ -177,4 +183,5 @@ void		print_2d_array(int **array, int x, int y);
 void		fill_map_borders(int **array, int x, int y);
 void		print_world(t_world *world);
 void		print_info(t_info *info);
+void		print_list(t_list *lst);
 #endif

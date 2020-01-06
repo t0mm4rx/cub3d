@@ -3,9 +3,10 @@
 ## Mendatory part
 - [ ] performance
 - [ ] -save arg
-- [ ] Map parsing
+- [x] Map parsing
 - [ ] Print textures 😭😭
 - [ ] Draw sprite
+- [ ] Check leaks
 
 ## Bonuses 🚀
 - [ ] Sounds --> see external libs

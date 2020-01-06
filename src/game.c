@@ -1,15 +1,15 @@
 #include "cub3d.h"
 
-t_game	*create_game(unsigned int width, unsigned int height, const char *title)
+t_game	*create_game(t_info *info, const char *title)
 {
 	t_game *res;
 
 	if (!(res = ft_calloc(sizeof(t_game), 1)))
 		return (NULL);
-	res->world = create_world();
+	res->world = create_world(info);
 	res->keys = create_keys();
 	res->draw = NULL;
-	res->window = create_window(width, height, title, res);
+	res->window = create_window(info->width, info->height, title, res);
 	return (res);
 }
 
@@ -18,23 +18,22 @@ void	start_game(t_game *game)
 	mlx_loop(game->window->mlx_ptr);
 }
 
-t_world	*create_world(void)
+t_world	*create_world(t_info *info)
 {
 	t_world	*res;
 
 	if (!(res = ft_calloc(sizeof(t_world), 1)))
 		return (NULL);
-	res->angle = 0;
+	res->angle = info->angle;
 	if (!(res->rays = create_ray_array(res->angle)))
 		return (NULL);
-	res->map = create_2d_array(10, 10);
-	res->mx = 10;
-	res->my = 10;
-	res->px = 5;
-	res->py = 5;
+	res->map = info->map;
+	res->mx = info->map_width;
+	res->my = info->map_height;
+	res->px = info->px;
+	res->py = info->py;
 	res->pz = 0;
 	res->jump_time = -1;
-	fill_map_borders(res->map, res->mx, res->my);
 	return (res);
 }
 

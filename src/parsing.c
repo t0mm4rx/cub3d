@@ -20,12 +20,12 @@ t_info  *parse(char *file)
     free(line);
     if (!check_parsing(res))
       parsing_error(res);
+    create_map(res);
     return (res);
 }
 
 void     handle_line(char *line, t_info *info)
 {
-  (void)info;
   if (*line == '\0')
     return ;
   if (!ft_isdigit(*line) && info->map_started)
@@ -46,12 +46,14 @@ int       check_parsing(t_info *info)
   if (!info->texture_n || !info->texture_s || !info->texture_w
     || !info->texture_e || !info->texture_sprite)
     return (0);
+  if (!check_map(info))
+    return (0);
   return (1);
 }
 
 void      parsing_error(t_info *info)
 {
-  free(info);
+  destroy_info(info);
   write(1, "Error\n", 6);
   exit(0);
 }

@@ -2,8 +2,7 @@
 
 void		handle_line_map(char *line, t_info *info)
 {
-  (void)info;
-  (void)line;
+  ft_lstadd_back(&(info->map_tmp), ft_lstnew(ft_strdup(line)));
 }
 
 void		handle_line_info(char *line, t_info *info)
