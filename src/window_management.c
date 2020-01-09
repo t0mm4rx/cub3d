@@ -7,7 +7,7 @@ int			loop_hook(void *param)
 	return (1);
 }
 
-t_window	*create_window(unsigned int width, unsigned int height, const char *title, t_game *game)
+t_window	*create_window(t_info *info, const char *title, t_game *game)
 {
 	t_window	*res;
 	int			config[3];
@@ -15,14 +15,14 @@ t_window	*create_window(unsigned int width, unsigned int height, const char *tit
 	if (!(res = ft_calloc(sizeof(t_window), 1)))
 		return (NULL);
 	config[0] = 32;
-	config[1] = width * 4;
+	config[1] = info->width * 4;
 	config[2] = 0;
-	res->width = width;
-	res->height = height;
+	res->width = info->width;
+	res->height = info->height;
 	res->title = title;
-	res->mlx_ptr = mlx_init();
-	res->win_ptr = mlx_new_window(res->mlx_ptr, width, height, (char *)title);
-	res->surface = mlx_new_image(res->mlx_ptr, width, height);
+	res->mlx_ptr = info->tmp_mlx_ptr;
+	res->win_ptr = mlx_new_window(res->mlx_ptr, info->width, info->height, (char *)title);
+	res->surface = mlx_new_image(res->mlx_ptr, info->width, info->height);
 	res->data = mlx_get_data_addr(res->surface,
 			&config[0], &config[1], &config[2]);
 	mlx_hook(res->win_ptr, 2, 1L << 0, &key_pressed, game);

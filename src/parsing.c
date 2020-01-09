@@ -11,6 +11,7 @@ t_info  *parse(char *file)
     res = ft_calloc(sizeof(t_info), 1);
     if (fd < 0)
       parsing_error(res);
+    res->tmp_mlx_ptr = mlx_init();
     while ((status = get_next_line(fd, &line)) > 0)
     {
       handle_line(line, res);
@@ -43,8 +44,8 @@ int       check_parsing(t_info *info)
 {
   if (info->width <= 0 || info->height <= 0)
     return (0);
-  if (!info->texture_n || !info->texture_s || !info->texture_w
-    || !info->texture_e || !info->texture_sprite)
+  if (!info->texture_n->ptr || !info->texture_s->ptr || !info->texture_w->ptr
+    || !info->texture_e->ptr || !info->texture_sprite->ptr)
     return (0);
   if (!check_map(info))
     return (0);

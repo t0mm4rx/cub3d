@@ -60,11 +60,11 @@ void	print_world(t_world *world)
 void	print_info(t_info *info)
 {
 	printf("Width: %d\nHeight: %d\n", info->width, info->height);
-	printf("Texture W: %s\n", info->texture_w);
+	/*printf("Texture W: %s\n", info->texture_w);
 	printf("Texture E: %s\n", info->texture_e);
 	printf("Texture N: %s\n", info->texture_n);
 	printf("Texture S: %s\n", info->texture_s);
-	printf("Texture Sprite: %s\n", info->texture_sprite);
+	printf("Texture Sprite: %s\n", info->texture_sprite);*/
 	printf("PX: %d\nPY: %d\nAngle: %c\n", info->px, info->py, info->orientation);
 	printf("Ceil: %d, %d, %d\n", info->ceil[0], info->ceil[1], info->ceil[2]);
 	printf("Floor: %d, %d, %d\n", info->floor[0], info->floor[1], info->floor[2]);

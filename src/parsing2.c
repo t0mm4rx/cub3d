@@ -37,15 +37,15 @@ void		parse_texture(char *line, t_info *info)
     line++;
   line++;
   if (type[0] == 'N')
-    info->texture_n = ft_strdup(line);
+    info->texture_n = load_texture(info->tmp_mlx_ptr, line);
   if (type[0] == 'E')
-    info->texture_e = ft_strdup(line);
+    info->texture_e = load_texture(info->tmp_mlx_ptr, line);
   if (type[0] == 'W')
-    info->texture_w = ft_strdup(line);
+    info->texture_w = load_texture(info->tmp_mlx_ptr, line);
   if (type[0] == 'S' && type[1] == 'O')
-    info->texture_s = ft_strdup(line);
+    info->texture_s = load_texture(info->tmp_mlx_ptr, line);
   if (type[0] == 'S' && type[1] == ' ')
-    info->texture_sprite = ft_strdup(line);
+    info->texture_sprite = load_texture(info->tmp_mlx_ptr, line);
 }
 
 void		parse_color(char *line, t_info *info)

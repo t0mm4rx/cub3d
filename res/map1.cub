@@ -1,10 +1,10 @@
-R 600 400
+R 600 500
 
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-S ./path_to_the_sprite_texture
+NO ./res/wall.xpm
+SO ./res/grass.xpm
+WE ./res/brick.xpm
+EA ./res/wood.xpm
+S ./res/wood.xpm
 
 C 225,30,0
 F 220,100,0

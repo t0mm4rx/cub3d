@@ -35,7 +35,8 @@ typedef struct	s_keys {
 	int k_w;
 }				t_keys;
 
-typedef struct	s_window {
+typedef struct	s_window
+{
 	void			*win_ptr;
 	void			*mlx_ptr;
 	void			*surface;
@@ -44,6 +45,15 @@ typedef struct	s_window {
 	unsigned int	height;
 	const char		*title;
 }				t_window;
+
+typedef struct	s_texture
+{
+	int				width;
+	int				height;
+	char			*filename;
+	void			*ptr;
+	char			*data;
+}								t_texture;
 
 typedef struct	s_ray
 {
@@ -73,11 +83,11 @@ typedef struct	s_world
 	float					py;
 	float					pz;
 	float					jump_time;
-	char					*texture_o;
-	char					*texture_e;
-	char					*texture_s;
-	char					*texture_n;
-	char					*texture_sprite;
+	t_texture			*texture_o;
+	t_texture			*texture_e;
+	t_texture			*texture_s;
+	t_texture			*texture_n;
+	t_texture			*texture_sprite;
 	unsigned char	color_ceil[4];
 	unsigned char	color_ground[4];
 }		t_world;
@@ -92,11 +102,12 @@ typedef struct	s_game
 
 typedef struct	s_info
 {
-	char					*texture_e;
-	char					*texture_w;
-	char					*texture_n;
-	char					*texture_s;
-	char					*texture_sprite;
+	void					*tmp_mlx_ptr;
+	t_texture			*texture_e;
+	t_texture			*texture_w;
+	t_texture			*texture_n;
+	t_texture			*texture_s;
+	t_texture			*texture_sprite;
 	t_list				*map_tmp;
 	int						**map;
 	int						width;
@@ -114,7 +125,7 @@ typedef struct	s_info
 /*
 ** Window management functions
 */
-t_window	*create_window(unsigned int width, unsigned int height, const char *title, t_game *game);
+t_window	*create_window(t_info *info, const char *title, t_game *game);
 void		close_window(t_window *window);
 void		draw_rect(t_window *window, t_rect rect, unsigned char color[4]);
 void		draw_pixel(t_window *window, unsigned int x, unsigned int y,
@@ -166,6 +177,12 @@ void		parse_color(char *line, t_info *info);
 void		destroy_info(t_info *info);
 int			check_map(t_info *info);
 void		create_map(t_info *info);
+
+/*
+** Texture functions
+*/
+t_texture	*load_texture(void *mlx_ptr, char *filename);
+void			destroy_texture(void *mlx_ptr, t_texture *texture);
 
 /*
 ** Utils functions

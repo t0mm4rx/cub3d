@@ -9,7 +9,7 @@ t_game	*create_game(t_info *info, const char *title)
 	res->world = create_world(info);
 	res->keys = create_keys();
 	res->draw = NULL;
-	res->window = create_window(info->width, info->height, title, res);
+	res->window = create_window(info, title, res);
 	return (res);
 }
 
@@ -28,6 +28,7 @@ t_world	*create_world(t_info *info)
 	if (info->orientation == 'N')
 		res->angle = -90;
 	if (info->orientation == 'W')
+	if (info->orientation == 'W')
 		res->angle = 180;
 	if (info->orientation == 'S')
 		res->angle = 90;
@@ -40,17 +41,27 @@ t_world	*create_world(t_info *info)
 	res->py = info->py;
 	res->pz = 0;
 	res->jump_time = -1;
+	res->texture_e = info->texture_e;
+	res->texture_s = info->texture_s;
+	res->texture_o = info->texture_w;
+	res->texture_n = info->texture_n;
+	res->texture_sprite = info->texture_sprite;
 	return (res);
 }
 
 void	stop_game(t_game *game)
 {
 	printf("Exiting the game, cleaning up...");
+	destroy_texture(game->window->mlx_ptr, game->world->texture_n);
+	destroy_texture(game->window->mlx_ptr, game->world->texture_s);
+	destroy_texture(game->window->mlx_ptr, game->world->texture_e);
+	destroy_texture(game->window->mlx_ptr, game->world->texture_o);
+	destroy_texture(game->window->mlx_ptr, game->world->texture_sprite);
+	mlx_destroy_window(game->window->mlx_ptr, game->window->win_ptr);
+	mlx_destroy_image(game->window->mlx_ptr, game->window->surface);
 	free_2d_array(game->world->map, game->world->mx);
 	free_ray_array(game->world->rays);
 	free(game->world);
-	mlx_destroy_window(game->window->mlx_ptr, game->window->win_ptr);
-	mlx_destroy_image(game->window->mlx_ptr, game->window->surface);
 	free(game->window);
 	free(game->keys);
 	free(game);
