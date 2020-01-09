@@ -15,7 +15,7 @@ t_ray	**create_ray_array(float angle)
 		a = (-FOV / 2) + (FOV / RAYS) * i;
 		temp = ft_calloc(sizeof(t_ray), 1);
 		temp->angle = mod(a + angle, 360.0);
-		temp->texture = 'x';
+		temp->texture = NULL;
 		temp->distance = INF;
 		res[i] = temp;
 		i += 1;
@@ -47,24 +47,35 @@ void	free_ray_array(t_ray **rays)
 
 void	draw_rays(t_game *game)
 {
-	t_rect	rect;
-	int				i;
-	int				c;
-	int				res;
-	int				d;
+	int						i;
+	int						res;
+	int						d;
+	int						x;
+	int						y;
+	int						a;
 	unsigned char	color[4];
 
 	res = ceil(game->window->width / RAYS);
 	i = -1;
 	while (++i < RAYS)
 	{
-			c = (255 / maxf(game->world->rays[i]->distance, 1.0));
 			d = (int)(game->window->height / game->world->rays[i]->distance);
-			rect.x = i * res;
-			rect.y = (int)(game->window->height / 2 - d / 2) + game->world->pz;
-			rect.width = res;
-			rect.height = d;
-			set_color(color, c, c, c);
-			draw_rect(game->window, rect, color);
+			x = i * res;
+			while (x < i * res + res)
+			{
+				y = (int)(game->window->height / 2 - d / 2) + game->world->pz;
+				a = 0;
+				while (y < (int)(game->window->height / 2 - d / 2) + game->world->pz + d)
+				{
+					get_pixel_color(game->world->rays[i]->texture,
+						game->world->rays[i]->wall_x * game->world->rays[i]->texture->width,
+						(int)floor((float)(a) / (float)(d) * game->world->rays[i]->texture->height),
+						color);
+					draw_pixel(game->window, x, y, color);
+					y++;
+					a++;
+				}
+				x++;
+			}
 	}
 }

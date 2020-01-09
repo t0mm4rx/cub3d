@@ -42,11 +42,6 @@ int		main(int argc, char **argv)
 	set_color(game->world->color_ceil, 150, 80, 40);
 	set_color(game->world->color_ground, 20, 50, 120);
 	game->draw = &draw;
-
-	char *result[4];
-	get_pixel_color(game->world->texture_e, 0, 0, result);
-	printf("-- %d %d %d %d --\n", result[0], result[1], result[2], result[3]);
-
 	start_game(game);
 	stop_game(game);
 	return (0);

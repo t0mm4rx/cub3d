@@ -57,19 +57,20 @@ typedef struct	s_texture
 
 typedef struct	s_ray
 {
-	float	angle;
-	char	texture;
-	float	distance;
-	float side_dist_x;
-	float side_dist_y;
-	float delta_dist_x;
-	float delta_dist_y;
-	float ray_dir_x;
-	float ray_dir_y;
-	float step_x;
-	float step_y;
-	int		map_x;
-	int		map_y;
+	float			angle;
+	t_texture *texture;
+	float			distance;
+	float 		side_dist_x;
+	float 		side_dist_y;
+	float 		delta_dist_x;
+	float 		delta_dist_y;
+	float 		ray_dir_x;
+	float 		ray_dir_y;
+	float 		step_x;
+	float 		step_y;
+	float			wall_x;
+	int				map_x;
+	int				map_y;
 }				t_ray;
 
 typedef struct	s_world
@@ -183,7 +184,7 @@ void		create_map(t_info *info);
 */
 t_texture	*load_texture(void *mlx_ptr, char *filename);
 void			destroy_texture(void *mlx_ptr, t_texture *texture);
-void			get_pixel_color(t_texture *texture, int x, int y, char *result);
+void			get_pixel_color(t_texture *texture, int x, int y, unsigned char *result);
 
 /*
 ** Utils functions

@@ -56,9 +56,22 @@ static void	raycast_ray(t_world *world, t_ray *ray)
 	raycast_init(world, ray);
 	raycast_while(world, ray, &side);
 	if (side == 0)
+	{
 		ray->distance = (ray->map_x - world->px + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+		ray->wall_x = world->py + ray->distance * ray->ray_dir_y;
+		ray->texture = world->texture_o;
+		if (ray->ray_dir_x > 0)
+			ray->texture = world->texture_e;
+	}
   else
+	{
 		ray->distance = (ray->map_y - world->py + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+		ray->wall_x = world->px + ray->distance * ray->ray_dir_x;
+		ray->texture = world->texture_n;
+		if (ray->ray_dir_y > 0)
+			ray->texture = world->texture_s;
+	}
+	ray->wall_x -= floor(ray->wall_x);
 }
 
 void	raycast(t_world *world)
@@ -71,6 +84,5 @@ void	raycast(t_world *world)
 	{
 		min = INF;
 		raycast_ray(world, world->rays[i]);
-		world->rays[i]->texture = 's';
 	}
 }
