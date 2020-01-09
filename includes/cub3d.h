@@ -199,6 +199,11 @@ float		minf(float a, float b);
 float		maxf(float a, float b);
 
 /*
+** BMP export functions
+*/
+void		image_to_bmp(void *image_ptr, int width, int height);
+
+/*
 ** Debug functions
 */
 void		print_ray_array(t_ray **rays);
