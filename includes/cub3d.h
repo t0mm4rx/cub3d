@@ -183,6 +183,7 @@ void		create_map(t_info *info);
 */
 t_texture	*load_texture(void *mlx_ptr, char *filename);
 void			destroy_texture(void *mlx_ptr, t_texture *texture);
+void			get_pixel_color(t_texture *texture, int x, int y, char *result);
 
 /*
 ** Utils functions

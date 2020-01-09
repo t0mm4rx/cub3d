@@ -20,3 +20,14 @@ void      destroy_texture(void *mlx_ptr, t_texture *texture)
   mlx_destroy_image(mlx_ptr, texture->ptr);
   free(texture);
 }
+
+void			get_pixel_color(t_texture *texture, int x, int y, char *result)
+{
+  int index;
+  int i;
+
+  index = (x + y * texture->width) * 4;
+  i = -1;
+  while(++i < 4)
+    result[i] = texture->data[index + i];
+}
