@@ -43,3 +43,13 @@ void	draw_pixel(t_window *window, unsigned int x, unsigned int y,
 	while (++i < 4)
 		window->data[index + i] = color[i];
 }
+
+int			get_pixel(t_window *window, unsigned int x, unsigned int y)
+{
+	int index;
+
+	if (x >= window->width || y >= window->height)
+		return -1;
+	index = x * 4 + y * 4 * window->width;
+	return ((unsigned char)window->data[index] << 16) | ((unsigned char)window->data[index + 1] << 8) | (unsigned char)window->data[index + 2];
+}

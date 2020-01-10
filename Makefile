@@ -41,6 +41,10 @@ run: $(BINARY)
 	@echo -e "$(GREEN)==> Running binary$(RESET)"
 	@./$(BINARY) ./res/map1.cub
 
+runs: $(BINARY)
+	@echo -e "$(GREEN)==> Running binary with -save arg$(RESET)"
+	@./$(BINARY) ./res/map1.cub -save
+
 $(MLX):
 	@echo -e "$(GREEN)==> Making MLX$(RESET)"
 	make -C ./mlx

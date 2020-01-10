@@ -37,10 +37,10 @@ typedef struct	s_keys {
 
 typedef struct	s_window
 {
-	void			*win_ptr;
-	void			*mlx_ptr;
-	void			*surface;
-	char			*data;
+	void					*win_ptr;
+	void					*mlx_ptr;
+	void					*surface;
+	char					*data;
 	unsigned int	width;
 	unsigned int	height;
 	const char		*title;
@@ -98,6 +98,7 @@ typedef struct	s_game
 	t_window	*window;
 	t_world		*world;
 	t_keys		*keys;
+	int				screenshot;
 	void		(*draw)(struct s_game *);
 }				t_game;
 
@@ -131,6 +132,7 @@ void		close_window(t_window *window);
 void		draw_rect(t_window *window, t_rect rect, unsigned char color[4]);
 void		draw_pixel(t_window *window, unsigned int x, unsigned int y,
 									unsigned char color[4]);
+int			get_pixel(t_window *window, unsigned int x, unsigned int y);
 void		clear_data(t_window *window);
 int			key_pressed(int key, void *param);
 int			key_released(int key, void *param);
@@ -162,6 +164,7 @@ void		draw_ceil_ground(t_game *game);
 void		jump(t_game *game);
 void		update_jump(t_game *game);
 void		draw_hud(t_game *game);
+int     screenshot(t_game *game);
 
 /*
 ** Parsing functions
@@ -197,11 +200,7 @@ int			min(int a, int b);
 int			max(int a, int b);
 float		minf(float a, float b);
 float		maxf(float a, float b);
-
-/*
-** BMP export functions
-*/
-void		image_to_bmp(void *image_ptr, int width, int height);
+void		int_to_char(int n, unsigned char *src);
 
 /*
 ** Debug functions

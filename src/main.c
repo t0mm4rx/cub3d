@@ -27,6 +27,8 @@ void	draw(t_game *game)
 	draw_ceil_ground(game);
 	draw_rays(game);
 	draw_hud(game);
+	if (game->screenshot)
+		stop_game(game);
 	mlx_put_image_to_window(game->window->mlx_ptr, game->window->win_ptr,
 			game->window->surface, 0, 0);
 }
@@ -38,6 +40,8 @@ int		main(int argc, char **argv)
 	t_game *game;
 	t_info *info = parse(argv[1]);
 	game = create_game(info, "Cub3D by tmarx");
+	if (argc == 3 && !ft_strncmp(argv[2], "-save", 5))
+		game->screenshot = 1;
 	destroy_info(info);
 	set_color(game->world->color_ceil, 150, 80, 40);
 	set_color(game->world->color_ground, 20, 50, 120);

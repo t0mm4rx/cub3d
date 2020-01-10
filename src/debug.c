@@ -7,7 +7,7 @@ void	print_ray_array(t_ray **rays)
 	i = -1;
 	while (++i < RAYS)
 	{
-		printf("Ray (Angle: %f, Distance: %f, Texture: %c)\n", rays[i]->angle, rays[i]->distance, rays[i]->texture);
+		printf("Ray (Angle: %f, Distance: %f)\n", rays[i]->angle, rays[i]->distance);
 	}
 }
 

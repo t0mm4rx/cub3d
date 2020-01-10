@@ -33,3 +33,11 @@ void draw_hud(t_game *game) {
   rect.y = 10;
   draw_rect(game->window, rect, color);
 }
+
+void  int_to_char(int n, unsigned char *src)
+{
+	src[0] = (unsigned char)(n);
+	src[1] = (unsigned char)(n >> 8);
+	src[2] = (unsigned char)(n >> 16);
+	src[3] = (unsigned char)(n >> 24);
+}
