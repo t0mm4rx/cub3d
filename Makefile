@@ -55,6 +55,7 @@ norme:
 
 clean:
 	rm -rf libft/*.o obj/* mlx/*.o
+	rm -rf screenshot.bmp
 
 fclean: clean
 	rm -rf $(BINARY) *.dSYM $(LIBFT)

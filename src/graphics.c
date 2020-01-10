@@ -46,10 +46,10 @@ void	draw_pixel(t_window *window, unsigned int x, unsigned int y,
 
 int			get_pixel(t_window *window, unsigned int x, unsigned int y)
 {
-	int index;
+	int	ptr;
 
-	if (x >= window->width || y >= window->height)
-		return -1;
-	index = x * 4 + y * 4 * window->width;
-	return ((unsigned char)window->data[index] << 16) | ((unsigned char)window->data[index + 1] << 8) | (unsigned char)window->data[index + 2];
+	ptr = *(int*)(window->data
+			+ (4 * (int)window->width * ((int)window->height - 1 - y))
+			+ (4 * x));
+	return ((ptr & 0xFF0000) | (ptr & 0x00FF00) | (ptr & 0x0000FF));
 }
