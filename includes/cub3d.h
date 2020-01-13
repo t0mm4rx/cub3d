@@ -55,6 +55,12 @@ typedef struct	s_texture
 	char			*data;
 }								t_texture;
 
+typedef struct	s_sprite
+{
+	int				x;
+	int				y;
+}								t_sprite;
+
 typedef struct	s_ray
 {
 	float			angle;
@@ -91,6 +97,7 @@ typedef struct	s_world
 	t_texture			*texture_sprite;
 	unsigned char	color_ceil[4];
 	unsigned char	color_ground[4];
+	t_list				*sprites;
 }		t_world;
 
 typedef struct	s_game
@@ -165,6 +172,9 @@ void		jump(t_game *game);
 void		update_jump(t_game *game);
 void		draw_hud(t_game *game);
 int     screenshot(t_game *game);
+void		draw_sprites(t_game *game);
+t_list	*create_sprites_array(t_info *info);
+void    destroy_sprite(void *content);
 
 /*
 ** Parsing functions

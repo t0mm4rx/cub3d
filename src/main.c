@@ -26,6 +26,7 @@ void	draw(t_game *game)
 	raycast(game->world);
 	draw_ceil_ground(game);
 	draw_rays(game);
+	draw_sprites(game);
 	draw_hud(game);
 	if (game->screenshot)
 		stop_game(game);

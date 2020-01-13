@@ -3,7 +3,8 @@
 ## Mendatory part
 - [ ] Draw sprite
 - [ ] Check leaks
-- [ ] -save arg
+- [ ] If res is greater than window
+- [ ] Norme ☠️
 
 ## Bonuses 🚀
 - [ ] Sounds --> see external libs

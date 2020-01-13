@@ -46,6 +46,7 @@ t_world	*create_world(t_info *info)
 	res->texture_o = info->texture_w;
 	res->texture_n = info->texture_n;
 	res->texture_sprite = info->texture_sprite;
+	res->sprites = create_sprites_array(info);
 	return (res);
 }
 
@@ -63,6 +64,7 @@ void	stop_game(t_game *game)
 	mlx_destroy_image(game->window->mlx_ptr, game->window->surface);
 	free_2d_array(game->world->map, game->world->mx);
 	free_ray_array(game->world->rays);
+	ft_lstclear(&(game->world->sprites), &destroy_sprite);
 	free(game->world);
 	free(game->window);
 	free(game->keys);
