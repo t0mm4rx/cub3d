@@ -98,6 +98,8 @@ typedef struct	s_world
 	unsigned char	color_ceil[4];
 	unsigned char	color_ground[4];
 	t_list				*sprites;
+	float					plane_x;
+	float					plane_y;
 }		t_world;
 
 typedef struct	s_game

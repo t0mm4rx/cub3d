@@ -40,6 +40,8 @@ t_world	*create_world(t_info *info)
 	res->px = info->px;
 	res->py = info->py;
 	res->pz = 0;
+	res->plane_x = 0.0;
+	res->plane_y = 0.66;
 	res->jump_time = -1;
 	res->texture_e = info->texture_e;
 	res->texture_s = info->texture_s;

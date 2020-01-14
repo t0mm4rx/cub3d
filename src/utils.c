@@ -10,6 +10,11 @@ void	set_color(unsigned char color[4], unsigned char r, unsigned char g, unsigne
 
 void	rotate(t_game *game, int direction)
 {
+
+	float temp = game->world->plane_x;
+	game->world->plane_x = game->world->plane_x * cos(-deg_to_rad(direction * ROTATE_SPEED)) - game->world->plane_y * sin(-deg_to_rad(direction * ROTATE_SPEED));
+	game->world->plane_y = temp * sin(-deg_to_rad(direction * ROTATE_SPEED)) + game->world->plane_y * cos(-deg_to_rad(direction * ROTATE_SPEED));
+
   rotate_ray_array(game->world->rays, direction * ROTATE_SPEED);
   game->world->angle += direction * ROTATE_SPEED;
   game->world->angle = mod(game->world->angle, 360);
