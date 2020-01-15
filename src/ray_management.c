@@ -6,13 +6,13 @@
 /*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:21:49 by tmarx             #+#    #+#             */
-/*   Updated: 2020/01/15 12:22:38 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/01/15 14:45:58 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_ray	**create_ray_array(float angle)
+t_ray		**create_ray_array(float angle)
 {
 	int		i;
 	float	a;
@@ -35,7 +35,7 @@ t_ray	**create_ray_array(float angle)
 	return (res);
 }
 
-void	rotate_ray_array(t_ray **rays, float angle)
+void		rotate_ray_array(t_ray **rays, float angle)
 {
 	int i;
 
@@ -47,7 +47,7 @@ void	rotate_ray_array(t_ray **rays, float angle)
 	}
 }
 
-void	free_ray_array(t_ray **rays)
+void		free_ray_array(t_ray **rays)
 {
 	int i;
 
@@ -57,37 +57,43 @@ void	free_ray_array(t_ray **rays)
 	free(rays);
 }
 
-void	draw_rays(t_game *game)
+static void	draw_ray(t_game *game, t_raycasting_data data)
 {
-	int				i;
-	int				res;
-	int				d;
-	int				x;
-	int				y;
-	int				a;
-	unsigned char	color[4];
+	unsigned char		color[4];
 
-	res = ceil(game->window->width / RAYS);
-	i = -1;
-	while (++i < RAYS)
+	get_pixel_color(game->world->rays[data.i]->texture,
+		game->world->rays[data.i]->wall_x *
+		game->world->rays[data.i]->texture->width,
+		(int)floor((float)(data.a) / (float)(data.d) *
+			game->world->rays[data.i]->texture->height),
+		color);
+	draw_pixel(game->window, data.x, data.y, color);
+}
+
+void		draw_rays(t_game *game)
+{
+	t_raycasting_data	data;
+
+	data.res = ceil(game->window->width / RAYS);
+	data.i = -1;
+	while (++data.i < RAYS)
 	{
-		d = (int)(game->window->height / game->world->rays[i]->distance);
-		x = i * res;
-		while (x < i * res + res)
+		data.d = (int)(game->window->height /
+				game->world->rays[data.i]->distance);
+		data.x = data.i * data.res;
+		while (data.x < data.i * data.res + data.res)
 		{
-			y = (int)(game->window->height / 2 - d / 2) + game->world->pz;
-			a = 0;
-			while (y < (int)(game->window->height / 2 - d / 2) + game->world->pz + d)
+			data.y = (int)(game->window->height / 2 - data.d / 2)
+				+ game->world->pz;
+			data.a = 0;
+			while (data.y < (int)(game->window->height / 2 - data.d / 2)
+					+ game->world->pz + data.d)
 			{
-				get_pixel_color(game->world->rays[i]->texture,
-					game->world->rays[i]->wall_x * game->world->rays[i]->texture->width,
-					(int)floor((float)(a) / (float)(d) * game->world->rays[i]->texture->height),
-					color);
-				draw_pixel(game->window, x, y, color);
-				y++;
-				a++;
+				draw_ray(game, data);
+				data.y++;
+				data.a++;
 			}
-			x++;
+			data.x++;
 		}
 	}
 }
