@@ -41,3 +41,10 @@ void  int_to_char(int n, unsigned char *src)
 	src[2] = (unsigned char)(n >> 16);
 	src[3] = (unsigned char)(n >> 24);
 }
+
+int 	get_nth_pixel_distance(t_game *game, int screen_x)
+{
+  int target = ((float)screen_x / (float)game->window->width) * RAYS;
+
+  return (game->world->rays[target]->distance);
+}

@@ -57,8 +57,25 @@ typedef struct	s_texture
 
 typedef struct	s_sprite
 {
-	int				x;
-	int				y;
+	int						x;
+	int						y;
+	float					sprite_x;
+	float					sprite_y;
+	float					dir_x;
+	float					dir_y;
+	float					inv_det;
+	float					transform_x;
+	float					transform_y;
+	int						sprite_screen_x;
+	int						sprite_width;
+	int						sprite_height;
+	int						draw_start_x;
+	int						draw_end_x;
+	int						draw_start_y;
+	int						draw_end_y;
+	unsigned char	color[4];
+	int						texture_x;
+	int						texture_y;
 }								t_sprite;
 
 typedef struct	s_ray
@@ -177,6 +194,7 @@ int     screenshot(t_game *game);
 void		draw_sprites(t_game *game);
 t_list	*create_sprites_array(t_info *info);
 void    destroy_sprite(void *content);
+int			get_nth_pixel_distance(t_game *game, int screen_x);
 
 /*
 ** Parsing functions

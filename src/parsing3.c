@@ -23,7 +23,7 @@ static int  check_line_ones(char *line)
 
 void         destroy_info(t_info *info)
 {
-  if (info->map_tmp)
+  if (info && info->map_tmp)
     ft_lstclear(&info->map_tmp, &destroy_node);
   free(info);
 }
