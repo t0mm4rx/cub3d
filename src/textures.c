@@ -28,6 +28,8 @@ void			get_pixel_color(t_texture *texture, int x, int y, unsigned char *result)
 
   if (x >= texture->width || y >= texture->height)
     return ;
+  if (x < 0 || y < 0)
+    return ;
   index = (x + y * texture->width) * 4;
   i = -1;
   while(++i < 4)

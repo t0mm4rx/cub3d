@@ -28,7 +28,6 @@ t_world	*create_world(t_info *info)
 	if (info->orientation == 'N')
 		res->angle = -90;
 	if (info->orientation == 'W')
-	if (info->orientation == 'W')
 		res->angle = 180;
 	if (info->orientation == 'S')
 		res->angle = 90;
@@ -41,7 +40,7 @@ t_world	*create_world(t_info *info)
 	res->py = info->py;
 	res->pz = 0;
 	res->plane_x = 0.0;
-	res->plane_y = 0.66;
+	res->plane_y = 0.40;
 	res->jump_time = -1;
 	res->texture_e = info->texture_e;
 	res->texture_s = info->texture_s;
