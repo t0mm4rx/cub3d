@@ -6,7 +6,7 @@
 /*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 11:47:45 by tmarx             #+#    #+#             */
-/*   Updated: 2020/01/15 11:50:33 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/01/15 14:23:17 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 static void	bmp_header(t_game *game, int fd, int filesize)
 {
-	unsigned char	data[54] = {0};
+	int						i;
+	unsigned char			data[54];
 
+	i = -1;
+	while (++i < 54)
+		data[i] = 0;
 	data[0] = (unsigned char)('B');
 	data[1] = (unsigned char)('M');
 	int_to_char(filesize, data + 2);
@@ -30,11 +34,14 @@ static void	bmp_header(t_game *game, int fd, int filesize)
 
 static void	bmp_pixels(t_game *game, int fd, int pad)
 {
-	unsigned char	zero[3] = {0, 0, 0};
+	unsigned char	zero[3];
 	unsigned int	i;
 	unsigned int	j;
 	int				color;
 
+	i = -1;
+	while (++i < 3)
+		zero[i] = 0;
 	i = 0;
 	while (i < game->window->height)
 	{

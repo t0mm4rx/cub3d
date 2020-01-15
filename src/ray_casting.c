@@ -55,16 +55,21 @@ static void	raycast_while(t_world *world, t_ray *ray, int *side)
 	}
 }
 
-static void	raycast_ray(t_world *world, t_ray *ray)
+static void	raycast_ray_init(t_world *world, t_ray *ray)
 {
-	int		side;
-
 	ray->map_x = floor(world->px);
 	ray->map_y = floor(world->py);
 	ray->ray_dir_x = cos(deg_to_rad(ray->angle));
 	ray->ray_dir_y = sin(deg_to_rad(ray->angle));
 	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+}
+
+static void	raycast_ray(t_world *world, t_ray *ray)
+{
+	int		side;
+
+	raycast_ray_init(world, ray);
 	raycast_init(world, ray);
 	raycast_while(world, ray, &side);
 	if (side == 0)

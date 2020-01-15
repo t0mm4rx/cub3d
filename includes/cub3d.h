@@ -6,7 +6,7 @@
 /*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:52:45 by tmarx             #+#    #+#             */
-/*   Updated: 2020/01/15 14:13:19 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/01/15 14:37:53 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define PLAYER_SPEED 0.1
 # define ROTATE_SPEED 3.0
-# define RAYS 90.0
+# define RAYS 180.0
 # define FOV 45.0
 # define JUMP_HEIGHT 10.0
 # ifndef INF
@@ -35,6 +35,15 @@ typedef struct	s_rect {
 	int width;
 	int height;
 }				t_rect;
+
+typedef struct	s_raycasting_data {
+	int	i;
+	int	res;
+	int	d;
+	int	x;
+	int	y;
+	int	a;
+}				t_raycasting_data;
 
 typedef struct	s_keys {
 	int k_up;
