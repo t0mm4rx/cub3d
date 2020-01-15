@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 12:02:07 by tmarx             #+#    #+#             */
+/*   Updated: 2020/01/15 12:02:53 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	update(t_game *game)
@@ -22,7 +34,6 @@ void	draw(t_game *game)
 	update(game);
 	mlx_clear_window(game->window->mlx_ptr, game->window->win_ptr);
 	clear_data(game->window);
-	//print_world(game->world);
 	raycast(game->world);
 	draw_ceil_ground(game);
 	draw_rays(game);
@@ -36,10 +47,12 @@ void	draw(t_game *game)
 
 int		main(int argc, char **argv)
 {
+	t_game	*game;
+	t_info	*info;
+
 	if (argc < 2 || argc > 3)
 		parsing_error(NULL);
-	t_game *game;
-	t_info *info = parse(argv[1]);
+	info = parse(argv[1]);
 	game = create_game(info, "Cub3D by tmarx");
 	if (argc == 3 && !ft_strncmp(argv[2], "-save", 5))
 		game->screenshot = 1;

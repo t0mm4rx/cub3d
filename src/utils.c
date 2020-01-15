@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 12:41:02 by tmarx             #+#    #+#             */
+/*   Updated: 2020/01/15 12:45:29 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void	set_color(unsigned char color[4], unsigned char r, unsigned char g, unsigned char b)
+void	set_color(unsigned char color[4], unsigned char r, unsigned char g,
+		unsigned char b)
 {
 	color[0] = r;
 	color[1] = g;
@@ -11,13 +24,17 @@ void	set_color(unsigned char color[4], unsigned char r, unsigned char g, unsigne
 void	rotate(t_game *game, int direction)
 {
 
-	float temp = game->world->plane_x;
-	game->world->plane_x = game->world->plane_x * cos(-deg_to_rad(direction * ROTATE_SPEED)) - game->world->plane_y * sin(-deg_to_rad(direction * ROTATE_SPEED));
-	game->world->plane_y = temp * sin(-deg_to_rad(direction * ROTATE_SPEED)) + game->world->plane_y * cos(-deg_to_rad(direction * ROTATE_SPEED));
+	float temp;
 
-  rotate_ray_array(game->world->rays, direction * ROTATE_SPEED);
-  game->world->angle += direction * ROTATE_SPEED;
-  game->world->angle = mod(game->world->angle, 360);
+	temp = game->world->plane_x;
+	game->world->plane_x = game->world->plane_x * cos(-deg_to_rad(direction *
+				ROTATE_SPEED)) - game->world->plane_y *
+		sin(-deg_to_rad(direction * ROTATE_SPEED));
+	game->world->plane_y = temp * sin(-deg_to_rad(direction * ROTATE_SPEED)) +
+		game->world->plane_y * cos(-deg_to_rad(direction * ROTATE_SPEED));
+	rotate_ray_array(game->world->rays, direction * ROTATE_SPEED);
+	game->world->angle += direction * ROTATE_SPEED;
+	game->world->angle = mod(game->world->angle, 360);
 }
 
 void	go(t_game *game, int direction)
@@ -32,22 +49,27 @@ void	go(t_game *game, int direction)
 		game->world->px += cos(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
 		game->world->py += sin(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
 	}
-  if (direction == 1)
-  {
-    game->world->px += cos(deg_to_rad(game->world->angle - 90)) * PLAYER_SPEED;
-    game->world->py += sin(deg_to_rad(game->world->angle - 90)) * PLAYER_SPEED;
-  }
-  if (direction == 2)
-  {
-    game->world->px -= cos(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
-    game->world->py -= sin(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
-  }
-  if (direction == 3)
-  {
-    game->world->px += cos(deg_to_rad(game->world->angle + 90)) * PLAYER_SPEED;
-    game->world->py += sin(deg_to_rad(game->world->angle + 90)) * PLAYER_SPEED;
-  }
-	if (game->world->map[(int)floor(game->world->px)][(int)floor(game->world->py)] == 1)
+	if (direction == 1)
+	{
+		game->world->px += cos(deg_to_rad(game->world->angle - 90))
+			* PLAYER_SPEED;
+		game->world->py += sin(deg_to_rad(game->world->angle - 90))
+			* PLAYER_SPEED;
+	}
+	if (direction == 2)
+	{
+		game->world->px -= cos(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
+		game->world->py -= sin(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
+	}
+	if (direction == 3)
+	{
+		game->world->px += cos(deg_to_rad(game->world->angle + 90)) *
+			PLAYER_SPEED;
+		game->world->py += sin(deg_to_rad(game->world->angle + 90)) *
+			PLAYER_SPEED;
+	}
+	if (game->world->map[(int)floor(game->world->px)]
+			[(int)floor(game->world->py)] == 1)
 	{
 		game->world->px = pos_x;
 		game->world->py = pos_y;
@@ -66,6 +88,7 @@ void	draw_ceil_ground(t_game *game)
 	rect.y = rect.height;
 	draw_rect(game->window, rect, game->world->color_ground);
 }
+
 void	jump(t_game *game)
 {
 	if (game->world->jump_time == -1)

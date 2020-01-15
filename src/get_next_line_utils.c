@@ -6,13 +6,13 @@
 /*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 12:32:57 by tmarx             #+#    #+#             */
-/*   Updated: 2019/11/18 12:16:22 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/01/15 12:00:04 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void			_ft_strjoin(char **s1, char *s2, int s2_size)
+void			my_ft_strjoin(char **s1, char *s2, int s2_size)
 {
 	char	*res;
 	int		i;

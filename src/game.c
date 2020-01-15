@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 11:55:17 by tmarx             #+#    #+#             */
+/*   Updated: 2020/01/15 11:59:25 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-t_game	*create_game(t_info *info, const char *title)
+t_game		*create_game(t_info *info, const char *title)
 {
 	t_game *res;
 
@@ -13,26 +25,13 @@ t_game	*create_game(t_info *info, const char *title)
 	return (res);
 }
 
-void	start_game(t_game *game)
+void		start_game(t_game *game)
 {
 	mlx_loop(game->window->mlx_ptr);
 }
 
-t_world	*create_world(t_info *info)
+static void	init_world(t_world *res, t_info *info)
 {
-	t_world	*res;
-
-	if (!(res = ft_calloc(sizeof(t_world), 1)))
-		return (NULL);
-	res->angle = 0;
-	if (info->orientation == 'N')
-		res->angle = -90;
-	if (info->orientation == 'W')
-		res->angle = 180;
-	if (info->orientation == 'S')
-		res->angle = 90;
-	if (!(res->rays = create_ray_array(res->angle)))
-		return (NULL);
 	res->map = info->map;
 	res->mx = info->map_width;
 	res->my = info->map_height;
@@ -48,10 +47,28 @@ t_world	*create_world(t_info *info)
 	res->texture_n = info->texture_n;
 	res->texture_sprite = info->texture_sprite;
 	res->sprites = create_sprites_array(info);
+}
+
+t_world		*create_world(t_info *info)
+{
+	t_world	*res;
+
+	if (!(res = ft_calloc(sizeof(t_world), 1)))
+		return (NULL);
+	res->angle = 0;
+	if (info->orientation == 'N')
+		res->angle = -90;
+	if (info->orientation == 'W')
+		res->angle = 180;
+	if (info->orientation == 'S')
+		res->angle = 90;
+	if (!(res->rays = create_ray_array(res->angle)))
+		return (NULL);
+	init_world(res, info);
 	return (res);
 }
 
-void	stop_game(t_game *game)
+void		stop_game(t_game *game)
 {
 	printf("Exiting the game, cleaning up...");
 	if (game->screenshot)

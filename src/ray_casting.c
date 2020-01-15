@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 12:16:41 by tmarx             #+#    #+#             */
+/*   Updated: 2020/01/15 12:21:04 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static void raycast_init(t_world *world, t_ray *ray)
+static void	raycast_init(t_world *world, t_ray *ray)
 {
 	if (ray->ray_dir_x < 0)
 	{
@@ -24,7 +36,7 @@ static void raycast_init(t_world *world, t_ray *ray)
 	}
 }
 
-static void raycast_while(t_world *world, t_ray *ray, int *side)
+static void	raycast_while(t_world *world, t_ray *ray, int *side)
 {
 	while (world->map[ray->map_x][ray->map_y] != 1)
 	{
@@ -57,15 +69,17 @@ static void	raycast_ray(t_world *world, t_ray *ray)
 	raycast_while(world, ray, &side);
 	if (side == 0)
 	{
-		ray->distance = (ray->map_x - world->px + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+		ray->distance = (ray->map_x - world->px +
+				(1 - ray->step_x) / 2) / ray->ray_dir_x;
 		ray->wall_x = world->py + ray->distance * ray->ray_dir_y;
 		ray->texture = world->texture_o;
 		if (ray->ray_dir_x > 0)
 			ray->texture = world->texture_e;
 	}
-  else
+	else
 	{
-		ray->distance = (ray->map_y - world->py + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+		ray->distance = (ray->map_y - world->py + (1 - ray->step_y) / 2) /
+			ray->ray_dir_y;
 		ray->wall_x = world->px + ray->distance * ray->ray_dir_x;
 		ray->texture = world->texture_n;
 		if (ray->ray_dir_y > 0)
@@ -74,9 +88,9 @@ static void	raycast_ray(t_world *world, t_ray *ray)
 	ray->wall_x -= floor(ray->wall_x);
 }
 
-void	raycast(t_world *world)
+void		raycast(t_world *world)
 {
-	int	i;
+	int		i;
 	float	min;
 
 	i = -1;

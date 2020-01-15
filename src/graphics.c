@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   graphics.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 12:01:41 by tmarx             #+#    #+#             */
+/*   Updated: 2020/01/15 12:01:47 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	draw_rect(t_window *window, t_rect rect, unsigned char color[4])
@@ -44,7 +56,7 @@ void	draw_pixel(t_window *window, unsigned int x, unsigned int y,
 		window->data[index + i] = color[i];
 }
 
-int			get_pixel(t_window *window, unsigned int x, unsigned int y)
+int		get_pixel(t_window *window, unsigned int x, unsigned int y)
 {
 	int	ptr;
 

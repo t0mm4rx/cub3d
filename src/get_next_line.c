@@ -6,7 +6,7 @@
 /*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 12:33:21 by tmarx             #+#    #+#             */
-/*   Updated: 2019/11/18 12:17:07 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/01/15 12:00:50 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int				get_next_line(int fd, char **line)
 	bytes_read = 42;
 	while (!count_bl(buffers[fd])
 			&& (bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
-		_ft_strjoin(&buffers[fd], buffer, bytes_read);
+		my_ft_strjoin(&buffers[fd], buffer, bytes_read);
 	if (bytes_read >= 0)
 		*line = first_line(buffers[fd]);
 	if (bytes_read <= 0)

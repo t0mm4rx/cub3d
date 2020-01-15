@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 11:51:01 by tmarx             #+#    #+#             */
+/*   Updated: 2020/01/15 11:52:13 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	print_ray_array(t_ray **rays)
@@ -7,7 +19,8 @@ void	print_ray_array(t_ray **rays)
 	i = -1;
 	while (++i < RAYS)
 	{
-		printf("Ray (Angle: %f, Distance: %f)\n", rays[i]->angle, rays[i]->distance);
+		printf("Ray (Angle: %f, Distance: %f)\n", rays[i]->angle,
+				rays[i]->distance);
 	}
 }
 
@@ -60,12 +73,10 @@ void	print_world(t_world *world)
 void	print_info(t_info *info)
 {
 	printf("Width: %d\nHeight: %d\n", info->width, info->height);
-	/*printf("Texture W: %s\n", info->texture_w);
-	printf("Texture E: %s\n", info->texture_e);
-	printf("Texture N: %s\n", info->texture_n);
-	printf("Texture S: %s\n", info->texture_s);
-	printf("Texture Sprite: %s\n", info->texture_sprite);*/
-	printf("PX: %d\nPY: %d\nAngle: %c\n", info->px, info->py, info->orientation);
-	printf("Ceil: %d, %d, %d\n", info->ceil[0], info->ceil[1], info->ceil[2]);
-	printf("Floor: %d, %d, %d\n", info->floor[0], info->floor[1], info->floor[2]);
+	printf("PX: %d\nPY: %d\nAngle: %c\n", info->px, info->py,
+			info->orientation);
+	printf("Ceil: %d, %d, %d\n", info->ceil[0], info->ceil[1],
+			info->ceil[2]);
+	printf("Floor: %d, %d, %d\n", info->floor[0], info->floor[1],
+			info->floor[2]);
 }

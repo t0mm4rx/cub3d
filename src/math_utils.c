@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 12:03:47 by tmarx             #+#    #+#             */
+/*   Updated: 2020/01/15 12:03:48 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 float	mod(float a, float b)
@@ -15,17 +27,17 @@ float	deg_to_rad(float a)
 
 float	dist(float a, float b, float x, float y)
 {
-	return sqrt(pow(a - x, 2) + pow(b - y, 2));
+	return (sqrt(pow(a - x, 2) + pow(b - y, 2)));
 }
 
-int	max(int a, int b)
+int		max(int a, int b)
 {
 	if (a > b)
 		return (a);
 	return (b);
 }
 
-int	min(int a, int b)
+int		min(int a, int b)
 {
 	if (a < b)
 		return (a);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   window_management.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 12:48:56 by tmarx             #+#    #+#             */
+/*   Updated: 2020/01/15 12:49:22 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int			loop_hook(void *param)
@@ -21,7 +33,8 @@ t_window	*create_window(t_info *info, const char *title, t_game *game)
 	res->height = info->height;
 	res->title = title;
 	res->mlx_ptr = info->tmp_mlx_ptr;
-	res->win_ptr = mlx_new_window(res->mlx_ptr, info->width, info->height, (char *)title);
+	res->win_ptr = mlx_new_window(res->mlx_ptr, info->width,
+			info->height, (char *)title);
 	res->surface = mlx_new_image(res->mlx_ptr, info->width, info->height);
 	res->data = mlx_get_data_addr(res->surface,
 			&config[0], &config[1], &config[2]);
@@ -32,7 +45,7 @@ t_window	*create_window(t_info *info, const char *title, t_game *game)
 	return (res);
 }
 
-t_keys	*create_keys(void)
+t_keys		*create_keys(void)
 {
 	t_keys	*res;
 
