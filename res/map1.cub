@@ -1,4 +1,4 @@
-R 600 500
+R 800 600
 
 NO ./res/wall.xpm
 SO ./res/grass.xpm
