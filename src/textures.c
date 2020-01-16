@@ -20,6 +20,8 @@ t_texture	*load_texture(void *mlx_ptr, char *filename)
 	res = ft_calloc(sizeof(t_texture), 1);
 	res->ptr = mlx_xpm_file_to_image(mlx_ptr, filename,
 			&(res->width), &(res->height));
+	if (!res->ptr)
+		return (res);
 	config[0] = 32;
 	config[1] = res->width * 4;
 	config[2] = 0;
