@@ -38,8 +38,15 @@ static void	init_world(t_world *res, t_info *info)
 	res->px = info->px;
 	res->py = info->py;
 	res->pz = 0;
-	res->plane_x = 0.0;
-	res->plane_y = 0.40;
+	res->plane_x = (info->orientation == 'E'
+		|| info->orientation == 'W' ? 0.0 : 0.40);
+	res->plane_y = (info->orientation == 'E'
+			|| info->orientation == 'W' ? 0.40 : 0.0);
+	if (info->orientation == 'E' || info->orientation == 'S')
+	{
+		res->plane_x *= -1;
+		res->plane_y *= -1;
+	}
 	res->jump_time = -1;
 	res->texture_e = info->texture_e;
 	res->texture_s = info->texture_s;
