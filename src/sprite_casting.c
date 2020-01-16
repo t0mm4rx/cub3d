@@ -6,7 +6,7 @@
 /*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:23:10 by tmarx             #+#    #+#             */
-/*   Updated: 2020/01/15 12:31:21 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/01/16 13:47:50 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	draw_sprites_while1(t_game *game, t_sprite *sprite)
 	sprite->sprite_height = abs((int)(game->window->height /
 		(sprite->transform_y)));
 	sprite->draw_start_y = -sprite->sprite_height / 2 +
-	game->window->height / 2 + game->world->pz;
+		game->window->height / 2 + game->world->pz;
 	sprite->draw_end_y = sprite->sprite_height / 2 +
 		game->window->height / 2 + game->world->pz;
 	sprite->sprite_width = abs((int)(game->window->height /
@@ -80,10 +80,17 @@ static void	draw_sprites_while2(t_game *game, t_sprite *sprite, int x, int y)
 	sprite->texture_y = (float)(y - sprite->draw_start_y) /
 		(float)(sprite->draw_end_y - sprite->draw_start_y) *
 		game->world->texture_sprite->height;
+	if (y < 0 || y >= (int)game->window->height
+			|| x < 0 || x >= (int)game->window->width)
+		return ;
+	if (sprite->texture_x < 0 || sprite->texture_y < 0)
+		return ;
+	if (sprite->texture_x >= game->world->texture_sprite->width ||
+		sprite->texture_y >= game->world->texture_sprite->height)
+		return ;
 	get_pixel_color(game->world->texture_sprite, sprite->texture_x,
 			sprite->texture_y, sprite->color);
-	if (sprite->color[3] != 255 || y < 0 || y >= (int)game->window->height
-		|| x < 0 || x >= (int)game->window->width)
+	if (sprite->color[3] != 255)
 		draw_pixel(game->window, x, y, sprite->color);
 }
 
@@ -97,9 +104,10 @@ void		draw_sprites(t_game *game)
 	ptr = game->world->sprites;
 	while (ptr)
 	{
-		sprite = ptr->content;
-		draw_sprites_while1(game, sprite);
+		draw_sprites_while1(game, (sprite = ptr->content));
 		x = sprite->draw_start_x - 1;
+		sprite->draw_start_y = sprite->draw_start_y < 0
+			? 0 : sprite->draw_start_y;
 		while (++x < sprite->draw_end_x)
 		{
 			if (sprite->transform_y > 0 && x > 0 &&
