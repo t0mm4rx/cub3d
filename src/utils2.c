@@ -64,3 +64,9 @@ int		get_nth_pixel_distance(t_game *game, int screen_x)
 	target = ((float)screen_x / (float)game->window->width) * RAYS;
 	return (game->world->rays[target]->distance);
 }
+
+void	jump(t_game *game)
+{
+	if (game->world->jump_time == -1)
+		game->world->jump_time = 0;
+}

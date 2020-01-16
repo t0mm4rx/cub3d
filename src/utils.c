@@ -6,13 +6,13 @@
 /*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:41:02 by tmarx             #+#    #+#             */
-/*   Updated: 2020/01/15 12:45:29 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/01/16 12:48:29 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	set_color(unsigned char color[4], unsigned char r, unsigned char g,
+void		set_color(unsigned char color[4], unsigned char r, unsigned char g,
 		unsigned char b)
 {
 	color[0] = r;
@@ -21,9 +21,8 @@ void	set_color(unsigned char color[4], unsigned char r, unsigned char g,
 	color[3] = 0;
 }
 
-void	rotate(t_game *game, int direction)
+void		rotate(t_game *game, int direction)
 {
-
 	float temp;
 
 	temp = game->world->plane_x;
@@ -37,13 +36,8 @@ void	rotate(t_game *game, int direction)
 	game->world->angle = mod(game->world->angle, 360);
 }
 
-void	go(t_game *game, int direction)
+static void	go_helper(t_game *game, int direction)
 {
-	float	pos_x;
-	float	pos_y;
-
-	pos_x = game->world->px;
-	pos_y = game->world->py;
 	if (direction == 0)
 	{
 		game->world->px += cos(deg_to_rad(game->world->angle)) * PLAYER_SPEED;
@@ -68,6 +62,16 @@ void	go(t_game *game, int direction)
 		game->world->py += sin(deg_to_rad(game->world->angle + 90)) *
 			PLAYER_SPEED;
 	}
+}
+
+void		go(t_game *game, int direction)
+{
+	float	pos_x;
+	float	pos_y;
+
+	pos_x = game->world->px;
+	pos_y = game->world->py;
+	go_helper(game, direction);
 	if (game->world->map[(int)floor(game->world->px)]
 			[(int)floor(game->world->py)] == 1)
 	{
@@ -76,7 +80,7 @@ void	go(t_game *game, int direction)
 	}
 }
 
-void	draw_ceil_ground(t_game *game)
+void		draw_ceil_ground(t_game *game)
 {
 	t_rect rect;
 
@@ -87,10 +91,4 @@ void	draw_ceil_ground(t_game *game)
 	draw_rect(game->window, rect, game->world->color_ceil);
 	rect.y = rect.height;
 	draw_rect(game->window, rect, game->world->color_ground);
-}
-
-void	jump(t_game *game)
-{
-	if (game->world->jump_time == -1)
-		game->world->jump_time = 0;
 }

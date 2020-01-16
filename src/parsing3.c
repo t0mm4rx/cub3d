@@ -6,7 +6,7 @@
 /*   By: tmarx <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:09:28 by tmarx             #+#    #+#             */
-/*   Updated: 2020/01/15 12:16:15 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/01/16 12:44:22 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,6 @@ static void	destroy_node(void *content)
 	free(content);
 }
 
-static int	check_line_ones(char *line)
-{
-	int i;
-
-	i = 0;
-	if (line[i++] != '1')
-		return (0);
-	while (line[i])
-	{
-		if (line[i] != ' ' && line[i] != '1')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 void		destroy_info(t_info *info)
 {
 	if (info && info->map_tmp)
@@ -40,30 +24,16 @@ void		destroy_info(t_info *info)
 	free(info);
 }
 
-int			check_map(t_info *info)
+static void	create_map_helper(char *line, t_info *info, int x, int y)
 {
-	unsigned int	target;
-	t_list			*ptr;
-
-	ptr = info->map_tmp;
-	target = ft_strlen(ptr->content);
-	if (!check_line_ones(ptr->content))
-		return (0);
-	ptr = ptr->next;
-	while (ptr)
+	if (*line == 'N' || *line == 'S' || *line == 'E' || *line == 'W')
 	{
-		if (ft_strlen(ptr->content) != target)
-			return (0);
-		if (((char*)ptr->content)[0] != '1' ||
-				((char*)ptr->content)[target - 1] != '1')
-			return (0);
-		if (!ptr->next && !check_line_ones(ptr->content))
-			return (0);
-		ptr = ptr->next;
+		info->px = x;
+		info->py = y;
+		info->orientation = *line;
 	}
-	info->map_width = (target + 1) / 2;
-	info->map_height = ft_lstsize(info->map_tmp);
-	return (1);
+	else
+		info->map[x][y] = ft_atoi(line);
 }
 
 void		create_map(t_info *info)
@@ -85,14 +55,7 @@ void		create_map(t_info *info)
 		x = 0;
 		while (x < info->map_width)
 		{
-			if (*line == 'N' || *line == 'S' || *line == 'E' || *line == 'W')
-			{
-				info->px = x;
-				info->py = y;
-				info->orientation = *line;
-			}
-			else
-				info->map[x][y] = ft_atoi(line);
+			create_map_helper(line, info, x, y);
 			line += 2;
 			x++;
 		}
