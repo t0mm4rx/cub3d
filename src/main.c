@@ -35,7 +35,7 @@ void	draw(t_game *game)
 	mlx_clear_window(game->window->mlx_ptr, game->window->win_ptr);
 	clear_data(game->window);
 	raycast(game->world);
-	//draw_ceil_ground(game);
+	draw_ceil_ground(game);
 	draw_rays(game);
 	draw_sprites(game);
 	draw_hud(game);
