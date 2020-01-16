@@ -33,10 +33,10 @@ void		handle_line_info(char *line, t_info *info)
 void		parse_resolution(char *line, t_info *info)
 {
 	line += 2;
-	info->width = ft_atoi(line);
+	info->width = min(ft_atoi(line), 2560);
 	while (ft_isdigit(*line))
 		line++;
-	info->height = ft_atoi(line);
+	info->height = min(ft_atoi(line), 1440);
 }
 
 void		parse_texture(char *line, t_info *info)

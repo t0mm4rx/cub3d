@@ -5,6 +5,6 @@
 - [x] Segfault when going through sprite
 - [x] Orientation at beginning of game
 - [ ] Check leaks
-- [ ] If res is greater than window
+- [x] If res is greater than window
 - [x] Norme ☠️
 - [ ] Performance near walls
