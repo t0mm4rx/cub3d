@@ -80,7 +80,6 @@ t_world		*create_world(t_info *info)
 
 void		stop_game(t_game *game)
 {
-	printf("Exiting the game, cleaning up...");
 	if (game->screenshot)
 		screenshot(game);
 	destroy_texture(game->window->mlx_ptr, game->world->texture_n);
