@@ -57,8 +57,6 @@ int		main(int argc, char **argv)
 	if (argc == 3 && !ft_strncmp(argv[2], "-save", 5))
 		game->screenshot = 1;
 	destroy_info(info);
-	set_color(game->world->color_ceil, 150, 80, 40);
-	set_color(game->world->color_ground, 20, 50, 120);
 	game->draw = &draw;
 	start_game(game);
 	stop_game(game);

@@ -72,6 +72,9 @@ t_world		*create_world(t_info *info)
 	if (!(res->rays = create_ray_array(res->angle)))
 		return (NULL);
 	init_world(res, info);
+	set_color(res->color_ceil, info->ceil[0], info->ceil[1], info->ceil[2]);
+	set_color(res->color_ground, info->floor[0],
+		info->floor[1], info->floor[2]);
 	return (res);
 }
 
